@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Plants Collective v4</string>
+    <string name="title_activity_main">Plants Collective v4</string>
+    <string name="package_name">com.plantscollective.app</string>
+    <string name="custom_url_scheme">com.plantscollective.app</string>
+</resources>
