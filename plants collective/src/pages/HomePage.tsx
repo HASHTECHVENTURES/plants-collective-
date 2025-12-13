@@ -272,9 +272,9 @@ const HomePage = () => {
                 />
               </div>
               
-              {/* Carousel Dots - Hidden on mobile */}
+              {/* Carousel Dots - Hidden on mobile and tablets */}
               {products.length > 1 && (
-                <div className="hidden md:flex justify-center space-x-2">
+                <div className="hidden lg:flex justify-center space-x-2">
                   {products.map((_, index) => (
                     <button
                       key={index}
