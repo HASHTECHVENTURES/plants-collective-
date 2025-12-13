@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route, useLocation, useNavigate } from "react-ro
 import { useState, createContext, useContext, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 import { storage } from "@/lib/config";
+import { realtimeSyncService } from "@/services/realtimeSyncService";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import type { User, LoginResult, AuthContextType } from "@/types";
 import { App as CapacitorApp } from '@capacitor/app';
@@ -19,9 +20,7 @@ import ProfilePage from "./pages/ProfilePage";
 import CommunityPage from "./pages/CommunityPage";
 import AskPlantsCollectivePage from "./pages/AskPlantsCollectivePage";
 import IngredientsPage from "./pages/services/IngredientsPage";
-import KnowYourHairPage from "./pages/services/KnowYourHairPage";
 import HelpFeedbackPage from "./pages/HelpFeedbackPage";
-import MarketPage from "./pages/MarketPage";
 // Removed old Enhanced Skin Analysis pages
 import ProgressTrackingPage from "./pages/ProgressTrackingPage";
 import BlogsPage from "./pages/BlogsPage";
@@ -103,6 +102,11 @@ const App = () => {
       }
     }
     setLoading(false);
+
+    // Cleanup real-time subscriptions on app unmount
+    return () => {
+      realtimeSyncService.cleanup();
+    };
   }, []);
 
   const login = async (pin: string, phone_number: string, name?: string, email?: string, gender?: string, birthdate?: string, country?: string, state?: string, city?: string): Promise<LoginResult> => {
@@ -309,9 +313,7 @@ const App = () => {
                   <Route path="/ask-plants-collective" element={user ? <AskPlantsCollectivePage /> : <AuthPage />} />
                   <Route path="/gold-meet" element={user ? <GoldMeetPage /> : <AuthPage />} />
                   <Route path="/ingredients" element={user ? <IngredientsPage /> : <AuthPage />} />
-                  <Route path="/know-your-hair" element={user ? <KnowYourHairPage /> : <AuthPage />} />
                   <Route path="/help" element={user ? <HelpFeedbackPage /> : <AuthPage />} />
-                  <Route path="/market" element={user ? <MarketPage /> : <AuthPage />} />
                   <Route path="/blogs" element={user ? <BlogsPage /> : <AuthPage />} />
                   <Route path="/blog/:id" element={user ? <BlogDetailPage /> : <AuthPage />} />
                   <Route path="/notifications" element={user ? <NotificationsPage /> : <AuthPage />} />

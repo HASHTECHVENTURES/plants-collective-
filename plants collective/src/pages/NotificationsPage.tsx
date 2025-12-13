@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Bell, Info, Tag, AlertTriangle, Zap, Check, CheckCheck } from 'lucide-react';
 import { useAuth } from '@/App';
 import { notificationService, Notification } from '@/services/notificationService';
+import { realtimeSyncService } from '@/services/realtimeSyncService';
 
 const NotificationsPage = () => {
   const navigate = useNavigate();
@@ -13,6 +14,18 @@ const NotificationsPage = () => {
   useEffect(() => {
     if (user?.id) {
       fetchNotifications();
+
+      // Subscribe to real-time notification changes
+      const unsubscribe = realtimeSyncService.subscribeToNotifications(user.id, (payload) => {
+        // When notification is added or updated, refresh list
+        if (payload.type === 'INSERT' || payload.type === 'UPDATE') {
+          fetchNotifications();
+        }
+      });
+
+      return () => {
+        unsubscribe();
+      };
     }
   }, [user?.id]);
 
@@ -35,13 +48,30 @@ const NotificationsPage = () => {
       );
     }
 
-    // Navigate if link exists
+    // Navigate to the section, not the external link
     if (notification.link) {
-      if (notification.link.startsWith('http')) {
-        window.open(notification.link, '_blank');
-      } else {
+      // If it's an internal route (starts with /), navigate to it
+      if (notification.link.startsWith('/')) {
         navigate(notification.link);
+      } 
+      // If it's a blog notification with external link, go to blogs page instead
+      else if (notification.link.startsWith('http') && notification.title.includes('Blog')) {
+        navigate('/blogs');
       }
+      // For other external links, still navigate to blogs if it's blog-related
+      else if (notification.link.startsWith('http')) {
+        // Check if notification is about blogs
+        if (notification.message.toLowerCase().includes('blog') || 
+            notification.message.toLowerCase().includes('article')) {
+          navigate('/blogs');
+        } else {
+          // For other external links, navigate to home
+          navigate('/');
+        }
+      }
+    } else {
+      // No link - navigate to home
+      navigate('/');
     }
   };
 

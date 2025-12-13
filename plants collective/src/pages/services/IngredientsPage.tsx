@@ -3,7 +3,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { ArrowLeft, Search, Leaf, Droplets, Sun, Sparkles } from "lucide-react";
+import { ArrowLeft, Search, Leaf, Droplets, Sun, Sparkles, ExternalLink } from "lucide-react";
+import { openExternalLink } from "@/lib/externalLinkHandler";
 
 const IngredientsPage = () => {
   const navigate = useNavigate();
@@ -78,13 +79,7 @@ const IngredientsPage = () => {
         <div className="max-w-md mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <button
-              onClick={() => {
-                if (window.history.length > 1) {
-                  navigate(-1);
-                } else {
-                  navigate('/');
-                }
-              }}
+              onClick={() => navigate('/')}
               aria-label="Go back"
               title="Go back"
               className="p-2 hover:bg-gray-100 rounded-full transition-colors"
@@ -162,6 +157,25 @@ const IngredientsPage = () => {
             </CardContent>
           </Card>
         )}
+
+        {/* Labothecary Link - Connect to Notion */}
+        <Card className="shadow-lg border-0 bg-gradient-to-r from-plants-light-gold to-plants-cream">
+          <CardContent className="p-6 text-center">
+            <h3 className="text-xl font-semibold mb-2">Plants Collective's Labothecary</h3>
+            <p className="text-muted-foreground mb-4">
+              Explore our comprehensive ingredient database and learn more about skincare science
+            </p>
+            <Button 
+              onClick={async () => {
+                await openExternalLink('https://lateral-biplane-a08.notion.site/Plants-Collective-s-Labothecary-22568ba9b2b680babcb7c385b8b42df8');
+              }}
+              className="bg-gradient-to-r from-plants-gold to-accent w-full sm:w-auto"
+            >
+              <ExternalLink className="w-4 h-4 mr-2" />
+              Open Labothecary
+            </Button>
+          </CardContent>
+        </Card>
 
         <Card className="shadow-lg border-0 bg-gradient-to-r from-plants-light-gold to-plants-cream">
           <CardContent className="p-6 text-center">

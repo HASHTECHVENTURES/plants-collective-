@@ -29,11 +29,6 @@ export const ReportButton = ({ section, context, variant = 'icon', className = '
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = async () => {
-    if (!details.trim()) {
-      alert('Please describe the issue');
-      return;
-    }
-
     setSubmitting(true);
     try {
       const { error } = await supabase.from('feedback_submissions').insert({
@@ -43,7 +38,7 @@ export const ReportButton = ({ section, context, variant = 'icon', className = '
         user_phone: user?.phone_number || null,
         category: 'issue',
         subject: `[${section}] ${reportReasons.find(r => r.value === reason)?.label || reason}`,
-        details: `Section: ${section}\nReason: ${reason}\nContext: ${context || 'N/A'}\n\nDetails:\n${details}`,
+        details: `Section: ${section}\nReason: ${reason}\nContext: ${context || 'N/A'}\n\nDetails:\n${details || 'No description provided'}`,
         status: 'new'
       });
 

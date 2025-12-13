@@ -89,7 +89,9 @@ const EnhancedSkinAnalysisResultsPage: React.FC = () => {
                     <img 
                       src={image} 
                       alt={['Front Face', 'Right Side', 'Left Side'][index]} 
-                      className="rounded-lg shadow-md border border-slate-200 aspect-square object-cover w-full" 
+                      className="rounded-lg shadow-md border border-slate-200 aspect-square object-cover w-full"
+                      loading="lazy"
+                      decoding="async" 
                     />
                     <p className="text-sm font-semibold text-slate-600 mt-2">
                       {['Front Face', 'Right Side', 'Left Side'][index]}

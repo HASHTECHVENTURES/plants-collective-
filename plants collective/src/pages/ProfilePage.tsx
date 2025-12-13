@@ -252,6 +252,8 @@ const ProfilePage = () => {
                   src={profilePhoto} 
                   alt="Profile" 
                   className="w-full h-full object-cover"
+                  loading="eager"
+                  decoding="async"
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-white text-3xl font-bold">

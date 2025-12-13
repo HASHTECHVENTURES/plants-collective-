@@ -24,6 +24,7 @@ export default defineConfig(({ mode }) => ({
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
+    extensions: [".mjs", ".js", ".mts", ".ts", ".jsx", ".tsx", ".json"],
   },
   esbuild: {
     // Remove console statements in production
@@ -36,12 +37,11 @@ export default defineConfig(({ mode }) => ({
         manualChunks: {
           'react-vendor': ['react', 'react-dom', 'react-router-dom'],
           'ui-vendor': ['lucide-react', '@radix-ui/react-dialog', '@radix-ui/react-toast'],
-          'ai-vendor': ['@google/generative-ai'],
           'data-vendor': ['@supabase/supabase-js', '@tanstack/react-query'],
         },
       },
     },
-    // Increase chunk size warning limit for AI libraries
+    // Increase chunk size warning limit
     chunkSizeWarningLimit: 1000,
     // Enable minification
     minify: 'terser',

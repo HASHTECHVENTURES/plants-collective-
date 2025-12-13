@@ -1,12 +1,12 @@
 {
 	"appId": "com.plantscollective.app",
-	"appName": "Plants Collective v4",
-	"version": "4.0.0",
+	"appName": "plantscollective",
+	"version": "1.0.0",
 	"webDir": "dist",
 	"server": {
 		"androidScheme": "https",
 		"iosScheme": "https",
-		"cleartext": true
+		"cleartext": false
 	},
 	"android": {
 		"backgroundColor": "#ffffff",

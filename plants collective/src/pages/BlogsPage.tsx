@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, BookOpen, AlertCircle, RefreshCw } from "lucide-react";
 import { supabase } from "@/lib/supabase";
+import { realtimeSyncService } from "@/services/realtimeSyncService";
 import ReportButton from "@/components/ReportButton";
 
 const BlogsPage = () => {
@@ -11,11 +12,7 @@ const BlogsPage = () => {
   const [error, setError] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
 
-  useEffect(() => {
-    fetchBlogs();
-  }, []);
-
-  const fetchBlogs = async () => {
+  const fetchBlogs = useCallback(async () => {
     setLoading(true);
     setError(null);
     
@@ -36,7 +33,35 @@ const BlogsPage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchBlogs();
+
+    // Subscribe to real-time blog changes
+    const unsubscribe = realtimeSyncService.subscribeToBlogs((payload) => {
+      if (payload.type === 'INSERT' && payload.new) {
+        // New blog published - add to list
+        setBlogs(prev => {
+          // Check if already exists (avoid duplicates)
+          if (prev.some(b => b.id === payload.new.id)) return prev;
+          return [payload.new, ...prev];
+        });
+      } else if (payload.type === 'UPDATE' && payload.new) {
+        // Blog updated - update in list
+        setBlogs(prev => 
+          prev.map(blog => blog.id === payload.new.id ? payload.new : blog)
+        );
+      } else if (payload.type === 'DELETE' && payload.old) {
+        // Blog deleted or unpublished - remove from list
+        setBlogs(prev => prev.filter(blog => blog.id !== payload.old.id));
+      }
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [fetchBlogs]);
 
   const categories = ["All", ...Array.from(new Set(blogs.map(blog => blog.category).filter(Boolean)))];
   
@@ -44,10 +69,11 @@ const BlogsPage = () => {
     ? blogs 
     : blogs.filter(blog => blog.category === selectedCategory);
 
-  const handleBlogClick = (blog: any) => {
-    // If blog has external link, open it in new tab
+  const handleBlogClick = async (blog: any) => {
+    // If blog has external link, open it properly (Android/iOS compatible)
     if (blog.external_link) {
-      window.open(blog.external_link, '_blank', 'noopener,noreferrer');
+      const { openExternalLink } = await import('@/lib/externalLinkHandler');
+      openExternalLink(blog.external_link);
     } else {
       // Fallback to detail page if no external link
       navigate(`/blog/${blog.id}`);
@@ -162,6 +188,8 @@ const BlogsPage = () => {
                         src={blog.featured_image}
                         alt={blog.title}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                        loading="lazy"
+                        decoding="async"
                         onError={(e) => {
                           (e.target as HTMLImageElement).src = 'https://via.placeholder.com/400x300?text=No+Image';
                         }}

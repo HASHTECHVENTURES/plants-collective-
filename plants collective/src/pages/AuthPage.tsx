@@ -193,6 +193,8 @@ const AuthPage = () => {
               src="https://vwdrevguebayhyjfurag.supabase.co/storage/v1/object/public/image/Icon.png" 
               alt="Plants Collective Logo"
               className="w-full h-full object-contain"
+              loading="eager"
+              decoding="async"
             />
           </div>
           <h2 className="text-lg font-semibold text-green-800">Plants Collective</h2>

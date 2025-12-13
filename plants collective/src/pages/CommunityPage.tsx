@@ -46,15 +46,16 @@ const CommunityPage = () => {
             <p className="text-gray-600 mb-4 text-sm">
               Connect with fellow beauty enthusiasts and get expert tips on our WhatsApp community.
             </p>
-            <a
-              href="https://chat.whatsapp.com/Ii8kAiBCdR13qEakwklCbw?mode=ems_copy_t"
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={async () => {
+                const { openExternalLink } = await import('@/lib/externalLinkHandler');
+                await openExternalLink('https://chat.whatsapp.com/Ii8kAiBCdR13qEakwklCbw?mode=ems_copy_t');
+              }}
               className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white text-sm font-medium rounded-lg hover:shadow-lg transition-all w-full justify-center"
             >
               <ExternalLink className="w-4 h-4" />
               Join WhatsApp Community
-            </a>
+            </button>
           </CardContent>
         </Card>
       </div>

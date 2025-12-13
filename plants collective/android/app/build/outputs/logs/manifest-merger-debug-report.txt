@@ -16,6 +16,7 @@ INJECTED from /Users/sujalpatel/Documents/Plants Collective/plants collective/an
 INJECTED from /Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:2:1-41:12
 INJECTED from /Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:2:1-41:12
 MERGED from [:capacitor-app] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/app/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:2:1-7:12
+MERGED from [:capacitor-browser] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/browser/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:2:1-21:12
 MERGED from [:capacitor-camera] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/camera/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:2:1-13:12
 MERGED from [:capacitor-filesystem] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/filesystem/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:2:1-7:12
 MERGED from [:capacitor-preferences] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/preferences/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:2:1-7:12
@@ -39,6 +40,7 @@ MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/sujalpatel/.grad
 MERGED from [androidx.emoji2:emoji2-views-helper:1.3.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/fd457bbc543ecdbee5c91b5aa5e11e77/transformed/emoji2-views-helper-1.3.0/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.emoji2:emoji2:1.3.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/455628e39230ce08b70f281b4ac99c3c/transformed/emoji2-1.3.0/AndroidManifest.xml:17:1-35:12
 MERGED from [androidx.webkit:webkit:1.12.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/3fbbd497413c0ee4069f169f4dc7a260/transformed/webkit-1.12.1/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.browser:browser:1.8.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/ce7a7439fda0c36e77102a7d38ff3226/transformed/browser-1.8.0/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/243233694e4ca3136f1ca4dacc434c39/transformed/vectordrawable-animated-1.1.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/bf2bdf699ee56f42fbfc2f03618abe36/transformed/vectordrawable-1.1.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.savedstate:savedstate-ktx:1.2.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/f974b30b07e5bde53cb3618bce731f69/transformed/savedstate-ktx-1.2.1/AndroidManifest.xml:17:1-22:12
@@ -85,6 +87,8 @@ MERGED from [org.apache.cordova:framework:10.1.1] /Users/sujalpatel/.gradle/cach
 application
 ADDED from /Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:4:5-36:19
 INJECTED from /Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:4:5-36:19
+MERGED from [:capacitor-browser] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/browser/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:13:5-19:19
+MERGED from [:capacitor-browser] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/browser/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:13:5-19:19
 MERGED from [:capacitor-cordova-android-plugins] /Users/sujalpatel/Documents/Plants Collective/plants collective/android/capacitor-cordova-android-plugins/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:8:5-9:19
 MERGED from [:capacitor-cordova-android-plugins] /Users/sujalpatel/Documents/Plants Collective/plants collective/android/capacitor-cordova-android-plugins/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:8:5-9:19
 MERGED from [com.google.android.material:material:1.12.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/a63b4def3f126a1584608cf719a55f7b/transformed/material-1.12.0/AndroidManifest.xml:22:5-20
@@ -119,8 +123,6 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/suja
 		ADDED from /Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:5:9-35
 	android:theme
 		ADDED from /Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:10:9-40
-	android:usesCleartextTraffic
-		ADDED from [:capacitor-cordova-android-plugins] /Users/sujalpatel/Documents/Plants Collective/plants collective/android/capacitor-cordova-android-plugins/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:8:18-53
 activity#com.plantscollective.app.MainActivity
 ADDED from /Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:12:9-25:20
 	android:label
@@ -161,6 +163,8 @@ INJECTED from /Users/sujalpatel/Documents/Plants Collective/plants collective/an
 INJECTED from /Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml
 MERGED from [:capacitor-app] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/app/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:5:5-44
 MERGED from [:capacitor-app] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/app/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:5:5-44
+MERGED from [:capacitor-browser] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/browser/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:5:5-44
+MERGED from [:capacitor-browser] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/browser/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:5:5-44
 MERGED from [:capacitor-camera] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/camera/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:5:5-44
 MERGED from [:capacitor-camera] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/camera/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:5:5-44
 MERGED from [:capacitor-filesystem] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/filesystem/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:5:5-44
@@ -207,6 +211,8 @@ MERGED from [androidx.emoji2:emoji2:1.3.0] /Users/sujalpatel/.gradle/caches/8.11
 MERGED from [androidx.emoji2:emoji2:1.3.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/455628e39230ce08b70f281b4ac99c3c/transformed/emoji2-1.3.0/AndroidManifest.xml:21:5-44
 MERGED from [androidx.webkit:webkit:1.12.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/3fbbd497413c0ee4069f169f4dc7a260/transformed/webkit-1.12.1/AndroidManifest.xml:5:5-44
 MERGED from [androidx.webkit:webkit:1.12.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/3fbbd497413c0ee4069f169f4dc7a260/transformed/webkit-1.12.1/AndroidManifest.xml:5:5-44
+MERGED from [androidx.browser:browser:1.8.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/ce7a7439fda0c36e77102a7d38ff3226/transformed/browser-1.8.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.browser:browser:1.8.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/ce7a7439fda0c36e77102a7d38ff3226/transformed/browser-1.8.0/AndroidManifest.xml:5:5-44
 MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/243233694e4ca3136f1ca4dacc434c39/transformed/vectordrawable-animated-1.1.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/243233694e4ca3136f1ca4dacc434c39/transformed/vectordrawable-animated-1.1.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/bf2bdf699ee56f42fbfc2f03618abe36/transformed/vectordrawable-1.1.0/AndroidManifest.xml:20:5-22:41
@@ -282,7 +288,25 @@ MERGED from [org.apache.cordova:framework:10.1.1] /Users/sujalpatel/.gradle/cach
 	android:minSdkVersion
 		INJECTED from /Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml
 queries
-ADDED from [:capacitor-camera] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/camera/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:7:5-11:15
+ADDED from [:capacitor-browser] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/browser/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:7:5-11:15
+MERGED from [:capacitor-camera] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/camera/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:7:5-11:15
+MERGED from [:capacitor-camera] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/camera/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:7:5-11:15
+intent#action:name:android.support.customtabs.action.CustomTabsService
+ADDED from [:capacitor-browser] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/browser/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:8:9-10:18
+action#android.support.customtabs.action.CustomTabsService
+ADDED from [:capacitor-browser] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/browser/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:9:13-90
+	android:name
+		ADDED from [:capacitor-browser] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/browser/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:9:21-87
+activity#com.capacitorjs.plugins.browser.BrowserControllerActivity
+ADDED from [:capacitor-browser] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/browser/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:14:9-18:75
+	android:launchMode
+		ADDED from [:capacitor-browser] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/browser/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:17:13-44
+	android:exported
+		ADDED from [:capacitor-browser] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/browser/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:16:13-37
+	android:theme
+		ADDED from [:capacitor-browser] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/browser/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:18:13-72
+	android:name
+		ADDED from [:capacitor-browser] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/browser/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:15:13-85
 intent#action:name:android.media.action.IMAGE_CAPTURE
 ADDED from [:capacitor-camera] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/camera/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:8:9-10:18
 action#android.media.action.IMAGE_CAPTURE

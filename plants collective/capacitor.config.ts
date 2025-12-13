@@ -2,14 +2,14 @@ import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'com.plantscollective.app',
-  appName: 'Plants Collective v4',
-  version: '4.0.0',
+  appName: 'plantscollective',
+  version: '1.0.0',
   webDir: 'dist',
   server: {
     androidScheme: 'https',
     iosScheme: 'https',
-    // Enable cleartext traffic for local development
-    cleartext: true
+    // Disable cleartext in production (enable only for local dev)
+    cleartext: process.env.NODE_ENV === 'development'
   },
   android: {
     // Enable edge-to-edge display for Android

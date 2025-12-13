@@ -2,6 +2,7 @@ import { useMemo, useState, useEffect } from "react";
 import { ArrowLeft, CalendarClock, Play, Search, Youtube } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
+import { realtimeSyncService } from "@/services/realtimeSyncService";
 import ReportButton from "@/components/ReportButton";
 
 type VideoItem = {
@@ -26,6 +27,24 @@ const GoldMeetPage = () => {
 
   useEffect(() => {
     fetchData();
+
+    // Subscribe to real-time Gold Meet changes
+    const unsubscribeSessions = realtimeSyncService.subscribeToGoldMeetSessions((payload) => {
+      if (payload.type === 'INSERT' || payload.type === 'UPDATE' || payload.type === 'DELETE') {
+        fetchData(); // Refresh when admin makes changes
+      }
+    });
+
+    const unsubscribeCategories = realtimeSyncService.subscribeToGoldMeetCategories((payload) => {
+      if (payload.type === 'INSERT' || payload.type === 'UPDATE' || payload.type === 'DELETE') {
+        fetchData(); // Refresh when admin makes changes
+      }
+    });
+
+    return () => {
+      unsubscribeSessions();
+      unsubscribeCategories();
+    };
   }, []);
 
   const fetchData = async () => {
@@ -216,7 +235,7 @@ const GoldMeetPage = () => {
                     className="w-full text-left flex gap-3 rounded-lg border border-gray-100 hover:border-green-200 hover:bg-green-50/40 p-2 transition"
                   >
                     <div className="w-20 h-16 rounded-md overflow-hidden bg-gray-100 relative">
-                      <img src={video.thumbnail} alt={video.title} className="w-full h-full object-cover" />
+                      <img src={video.thumbnail} alt={video.title} className="w-full h-full object-cover" loading="lazy" decoding="async" />
                       <span className="absolute inset-0 flex items-center justify-center text-white bg-black/30">
                         <Play className="w-5 h-5" />
                       </span>

@@ -10,8 +10,6 @@ INJECTED from /Users/sujalpatel/Documents/Plants Collective/plants collective/an
 		ADDED from /Users/sujalpatel/Documents/Plants Collective/plants collective/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:2:11-69
 application
 ADDED from /Users/sujalpatel/Documents/Plants Collective/plants collective/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:4:1-6:15
-	android:usesCleartextTraffic
-		ADDED from /Users/sujalpatel/Documents/Plants Collective/plants collective/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:4:15-50
 uses-sdk
 INJECTED from /Users/sujalpatel/Documents/Plants Collective/plants collective/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/sujalpatel/Documents/Plants Collective/plants collective/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml
