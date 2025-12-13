@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { Menu, Star, Scissors, Leaf, Users, Home, User, LogOut, X, LifeBuoy, FlaskConical, Bell } from "lucide-react";
 import { useAuth } from "@/App";
 import { supabase } from "@/lib/supabase";
 import { notificationService } from "@/services/notificationService";
+import { realtimeSyncService } from "@/services/realtimeSyncService";
 import ReportButton from "@/components/ReportButton";
 
 const HomePage = () => {
@@ -14,62 +15,85 @@ const HomePage = () => {
   const [products, setProducts] = useState<any[]>([]);
   const [unreadNotifications, setUnreadNotifications] = useState(0);
 
-  // Fetch unread notification count
+  // Fetch unread notification count with real-time updates
   useEffect(() => {
     if (user?.id) {
       const fetchUnreadCount = async () => {
         const count = await notificationService.getUnreadCount(user.id);
         setUnreadNotifications(count);
       };
+      
+      // Initial fetch
       fetchUnreadCount();
-      // Refresh every 30 seconds
-      const interval = setInterval(fetchUnreadCount, 30000);
-      return () => clearInterval(interval);
+      
+      // Subscribe to real-time notification changes
+      const unsubscribe = realtimeSyncService.subscribeToNotifications(user.id, (payload) => {
+        // When notification is added or updated, refresh count
+        if (payload.type === 'INSERT' || payload.type === 'UPDATE') {
+          fetchUnreadCount();
+        }
+      });
+
+      // Fallback: Still poll every 60 seconds as backup (in case real-time fails)
+      const interval = setInterval(fetchUnreadCount, 60000);
+      
+      return () => {
+        unsubscribe();
+        clearInterval(interval);
+      };
     }
   }, [user?.id]);
 
-  // Fetch products from Supabase
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const { data, error } = await supabase
-          .from('products_carousel')
-          .select('*')
-          .eq('is_active', true)
-          .order('display_order', { ascending: true })
-          .order('created_at', { ascending: false });
+  // Fetch products from Supabase with real-time updates
+  const fetchProducts = useCallback(async () => {
+    try {
+      const { data, error } = await supabase
+        .from('products_carousel')
+        .select('*')
+        .eq('is_active', true)
+        .order('display_order', { ascending: true })
+        .order('created_at', { ascending: false });
 
-        if (error) {
-          console.error('Error fetching products:', error);
-          // Fallback to default product if fetch fails
-          setProducts([{
-            id: 1,
-            name: "Product",
-            image: "https://vwdrevguebayhyjfurag.supabase.co/storage/v1/object/public/image/360_F_513544427_nQPUX288GG8WkEAokc1WSD8IVZBjHMPa.jpg",
-            link: "#"
-          }]);
-        } else {
-          // Transform Supabase data to match component structure
-          const formattedProducts = (data || []).map((product: any) => ({
-            id: product.id,
-            name: product.name,
-            image: product.media_type === 'video' ? product.video_url : product.image_url,
-            link: product.product_link || '#'
-          }));
-          setProducts(formattedProducts.length > 0 ? formattedProducts : [{
-            id: 1,
-            name: "Product",
-            image: "https://vwdrevguebayhyjfurag.supabase.co/storage/v1/object/public/image/360_F_513544427_nQPUX288GG8WkEAokc1WSD8IVZBjHMPa.jpg",
-            link: "#"
-          }]);
-        }
-      } catch (error) {
-        console.error('Error:', error);
+      if (error) {
+        console.error('Error fetching products:', error);
+        setProducts([]);
+      } else {
+        // Transform Supabase data to match component structure
+        const formattedProducts = (data || []).map((product: any) => ({
+          id: product.id,
+          name: product.name,
+          image: product.media_type === 'video' ? product.video_url : product.image_url,
+          link: product.product_link || '#'
+        }));
+        setProducts(formattedProducts.length > 0 ? formattedProducts : []);
       }
-    };
-
-    fetchProducts();
+    } catch (error) {
+      console.error('Error:', error);
+      setProducts([]);
+    }
   }, []);
+
+  useEffect(() => {
+    fetchProducts();
+
+    // Subscribe to real-time product changes
+    const unsubscribe = realtimeSyncService.subscribeToProducts((payload) => {
+      console.log('Products real-time update received:', payload);
+      // Always refresh on any change (INSERT, UPDATE, DELETE)
+      // This ensures we get the latest data with proper filtering
+      if (payload.type === 'INSERT' || payload.type === 'UPDATE' || payload.type === 'DELETE') {
+        console.log('Refreshing products due to real-time change:', payload.type);
+        // Small delay to ensure database is updated
+        setTimeout(() => {
+          fetchProducts();
+        }, 500);
+      }
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [fetchProducts]);
 
   // Auto-move product carousel every 3 seconds
   useEffect(() => {
@@ -195,6 +219,8 @@ const HomePage = () => {
             src="https://vwdrevguebayhyjfurag.supabase.co/storage/v1/object/public/image/Icon.png" 
             alt="Plants Collective Logo"
             className="w-12 h-12 flex-shrink-0"
+            loading="eager"
+            decoding="async"
           />
         </div>
         <div className="flex items-center gap-1">
@@ -237,6 +263,8 @@ const HomePage = () => {
                   src={products[currentProductIndex]?.image || "https://vwdrevguebayhyjfurag.supabase.co/storage/v1/object/public/image/360_F_513544427_nQPUX288GG8WkEAokc1WSD8IVZBjHMPa.jpg"}
                   alt={products[currentProductIndex]?.name || "Product"}
                   className="w-full h-full object-contain rounded-lg"
+                  loading="lazy"
+                  decoding="async"
                   onError={(e) => {
                     // Fallback to default image if image fails to load
                     e.currentTarget.src = "https://vwdrevguebayhyjfurag.supabase.co/storage/v1/object/public/image/360_F_513544427_nQPUX288GG8WkEAokc1WSD8IVZBjHMPa.jpg";
@@ -244,9 +272,9 @@ const HomePage = () => {
                 />
               </div>
               
-              {/* Carousel Dots */}
+              {/* Carousel Dots - Hidden on mobile */}
               {products.length > 1 && (
-                <div className="flex justify-center space-x-2">
+                <div className="hidden md:flex justify-center space-x-2">
                   {products.map((_, index) => (
                     <button
                       key={index}
@@ -298,6 +326,8 @@ const HomePage = () => {
                 src="https://images.unsplash.com/photo-1570554886111-e80fcca6a029?w=800&h=600&fit=crop"
                 alt="Blogs"
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                loading="lazy"
+                decoding="async"
                 onError={(e) => {
                   e.currentTarget.src = 'https://images.unsplash.com/photo-1487412912498-0447578fcca8?w=800&h=600&fit=crop';
                 }}
