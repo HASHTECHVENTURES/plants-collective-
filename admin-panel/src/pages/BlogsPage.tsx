@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react'
 import { supabase, BlogPost } from '@/lib/supabase'
-import { Plus, Trash2, Edit2, Eye, EyeOff, Search, Image, X, Tag, Upload, Loader2, FileText, ExternalLink } from 'lucide-react'
+import { Plus, Trash2, Edit2, Eye, EyeOff, Search, X, Tag, Upload, Loader2, FileText, ExternalLink } from 'lucide-react'
 import { formatDate, generateSlug } from '@/lib/utils'
 import { useAuth } from '@/context/AuthContext'
 
@@ -147,11 +147,7 @@ export const BlogsPage = () => {
       // Send notification to all users if enabled
       if (formData.notify_users && formData.is_published) {
         // Get the blog data from the result
-        const savedBlog = editingBlog 
-          ? { id: editingBlog.id, external_link: formData.external_link }
-          : (result.data?.[0] || result.data || { id: null, external_link: formData.external_link })
-        
-        await sendBlogNotification(formData.title, formData.category, savedBlog.external_link)
+        await sendBlogNotification(formData.title, formData.category)
       }
 
       setShowForm(false)
@@ -177,7 +173,7 @@ export const BlogsPage = () => {
   }
 
   // Send notification about new blog
-  const sendBlogNotification = async (blogTitle: string, category: string, externalLink?: string) => {
+  const sendBlogNotification = async (blogTitle: string, category: string) => {
     try {
       console.log('Sending blog notification to all users...')
       
@@ -199,9 +195,9 @@ export const BlogsPage = () => {
       console.log(`Found ${users.length} users to notify`)
 
       // Create notification with required fields
-      // If blog has external link, use it (will open in new tab)
-      // Otherwise, link to blogs page
-      const notificationLink = externalLink || '/blogs'
+      // Always link to blogs page section (not external link)
+      // User will see the blog in the blogs section
+      const notificationLink = '/blogs'
       
       const { data: notification, error: notifError } = await supabase
         .from('notifications')
@@ -403,7 +399,7 @@ export const BlogsPage = () => {
             <div key={blog.id} className="card overflow-hidden hover:shadow-lg transition-shadow">
               <div className="h-40 bg-gray-100 relative">
                 {blog.featured_image ? (
-                  <img src={blog.featured_image} alt={blog.title} className="w-full h-full object-cover" />
+                  <img src={blog.featured_image} alt={blog.title} className="w-full h-full object-cover" loading="lazy" decoding="async" />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">
                     <FileText className="w-10 h-10 text-gray-300" />
@@ -476,7 +472,7 @@ export const BlogsPage = () => {
                 <label className="block text-sm font-medium text-gray-700 mb-2">Cover Image</label>
                 {formData.featured_image ? (
                   <div className="relative">
-                    <img src={formData.featured_image} alt="Cover" className="w-full h-48 object-cover rounded-lg" />
+                    <img src={formData.featured_image} alt="Cover" className="w-full h-48 object-cover rounded-lg" loading="lazy" decoding="async" />
                     <button
                       onClick={() => setFormData({ ...formData, featured_image: '' })}
                       className="absolute top-2 right-2 p-2 bg-red-500 text-white rounded-full hover:bg-red-600"

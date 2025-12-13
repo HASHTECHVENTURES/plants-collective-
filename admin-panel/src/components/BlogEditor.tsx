@@ -1,10 +1,10 @@
-import { useRef, useEffect, useCallback, useMemo } from 'react'
+import { useRef, useCallback, useMemo } from 'react'
 import ReactQuill, { Quill } from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import { supabase } from '@/lib/supabase'
 
 // Register image upload handler
-const ImageUpload = Quill.import('formats/image')
+const ImageUpload = Quill.import('formats/image') as any
 ImageUpload.className = 'ql-image'
 
 interface BlogEditorProps {
@@ -60,7 +60,7 @@ export const BlogEditor = ({ value, onChange, placeholder = 'Write your blog con
       
       try {
         // Try to upload to Supabase Storage
-        const { data, error } = await supabase.storage
+        const { error } = await supabase.storage
           .from('images')
           .upload(fileName, file, {
             cacheControl: '3600',

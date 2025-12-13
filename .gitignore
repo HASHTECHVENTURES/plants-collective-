@@ -12,6 +12,9 @@ bun.lockb
 .env.local
 .env.*.local
 *.env
+**/.env
+admin-panel/.env
+"plants collective/.env"
 
 # Build outputs
 dist/
@@ -35,6 +38,8 @@ logs/
 android/
 ios/
 .capacitor/
+**/android/
+**/ios/
 
 # Supabase
 .supabase/

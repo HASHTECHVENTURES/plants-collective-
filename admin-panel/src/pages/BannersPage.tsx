@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { supabase, Product } from '@/lib/supabase'
-import { Plus, Trash2, Edit2, GripVertical, Image, Video, ExternalLink } from 'lucide-react'
+import { Plus, Trash2, Edit2, GripVertical, Image, Video } from 'lucide-react'
 
 export const BannersPage = () => {
   const [banners, setBanners] = useState<Product[]>([])
@@ -9,13 +9,12 @@ export const BannersPage = () => {
   const [editingBanner, setEditingBanner] = useState<Product | null>(null)
   const [formData, setFormData] = useState({
     name: '',
-    description: '',
-    image_url: '',
-    video_url: '',
     media_type: 'image' as 'image' | 'video',
-    product_link: '',
     is_active: true
   })
+  const [uploading, setUploading] = useState(false)
+  const [uploadedFileUrl, setUploadedFileUrl] = useState<string>('')
+  const uploadInProgressRef = useRef(false)
 
   useEffect(() => {
     fetchBanners()
@@ -32,24 +31,181 @@ export const BannersPage = () => {
     setLoading(false)
   }
 
-  const saveBanner = async () => {
-    if (!formData.name) return
+  const handleFileUpload = async (file: File) => {
+    if (!file) return
 
-    const bannerData = {
-      ...formData,
+    // Prevent multiple simultaneous uploads
+    if (uploadInProgressRef.current) {
+      console.log('Upload already in progress, ignoring new file')
+      return
+    }
+
+    uploadInProgressRef.current = true
+
+    // Validate file size (max 10MB for images, 50MB for videos)
+    const maxSize = formData.media_type === 'image' ? 10 * 1024 * 1024 : 50 * 1024 * 1024
+    if (file.size > maxSize) {
+      alert(`File is too large. Maximum size: ${formData.media_type === 'image' ? '10MB' : '50MB'}`)
+      uploadInProgressRef.current = false
+      return
+    }
+
+    // Validate file type
+    if (formData.media_type === 'image' && !file.type.startsWith('image/')) {
+      alert('Please select an image file')
+      uploadInProgressRef.current = false
+      return
+    }
+    if (formData.media_type === 'video' && !file.type.startsWith('video/')) {
+      alert('Please select a video file')
+      uploadInProgressRef.current = false
+      return
+    }
+
+    setUploading(true)
+    setUploadedFileUrl('') // Clear previous upload
+
+    try {
+      const fileExt = file.name.split('.').pop()
+      const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`
+      const filePath = `banners/${fileName}`
+
+      // Try to upload to Supabase Storage (bucket: 'image')
+      const { error } = await supabase.storage
+        .from('image')
+        .upload(filePath, file, { upsert: false })
+
+      if (error) {
+        // If storage fails (RLS policy, bucket not found, etc.), use base64 as fallback
+        console.warn('⚠️ Storage upload failed, using base64 fallback:', error.message)
+        console.warn('💡 Tip: Fix RLS policies in Supabase to use proper storage. See FIX_STORAGE_RLS.sql')
+        
+        // Use Promise to handle FileReader properly (prevents freezing)
+        const base64Url = await new Promise<string>((resolve, reject) => {
+          const reader = new FileReader()
+          reader.onloadend = () => {
+            if (reader.result) {
+              resolve(reader.result as string)
+            } else {
+              reject(new Error('Failed to read file'))
+            }
+          }
+          reader.onerror = () => reject(new Error('File read error'))
+          reader.readAsDataURL(file)
+        })
+        
+        setUploadedFileUrl(base64Url)
+        setUploading(false)
+        return
+      }
+
+      // Get public URL
+      const { data: urlData } = supabase.storage
+        .from('image')
+        .getPublicUrl(filePath)
+
+      if (urlData?.publicUrl) {
+        console.log('✅ File uploaded successfully to Supabase Storage:', urlData.publicUrl)
+        setUploadedFileUrl(urlData.publicUrl)
+      } else {
+        throw new Error('Failed to get public URL after upload')
+      }
+    } catch (error: any) {
+      console.error('Upload error:', error)
+      // Non-blocking alert
+      setTimeout(() => {
+        alert('Failed to upload file: ' + (error.message || 'Unknown error'))
+      }, 0)
+      
+      // Fallback to base64 if all else fails
+      try {
+        const base64Url = await new Promise<string>((resolve, reject) => {
+          const reader = new FileReader()
+          reader.onloadend = () => {
+            if (reader.result) {
+              resolve(reader.result as string)
+            } else {
+              reject(new Error('Failed to read file'))
+            }
+          }
+          reader.onerror = () => reject(new Error('File read error'))
+          reader.readAsDataURL(file)
+        })
+        setUploadedFileUrl(base64Url)
+      } catch (fallbackError) {
+        console.error('Base64 fallback failed:', fallbackError)
+        setTimeout(() => {
+          alert('Failed to process file. Please try again.')
+        }, 0)
+      }
+    } finally {
+      setUploading(false)
+      uploadInProgressRef.current = false
+    }
+  }
+
+  const saveBanner = async () => {
+    // Validate: must have uploaded file for new banners, or existing file for edits
+    if (!uploadedFileUrl && !editingBanner) {
+      alert('Please upload an image or video')
+      return
+    }
+
+    // For editing, allow saving without new upload (uses existing file)
+    const finalFileUrl = uploadedFileUrl || (editingBanner 
+      ? (formData.media_type === 'image' ? editingBanner.image_url : editingBanner.video_url)
+      : '')
+
+    if (!finalFileUrl) {
+      alert('Please upload an image or video')
+      return
+    }
+
+    const bannerData: any = {
+      name: formData.name || `Banner ${Date.now()}`,
+      media_type: formData.media_type,
+      is_active: formData.is_active,
       display_order: editingBanner ? editingBanner.display_order : banners.length
     }
 
-    if (editingBanner) {
-      await supabase.from('products_carousel').update(bannerData).eq('id', editingBanner.id)
+    // Set image_url or video_url based on media type
+    if (formData.media_type === 'image') {
+      bannerData.image_url = finalFileUrl
+      bannerData.video_url = null // Clear video_url when switching to image
     } else {
-      await supabase.from('products_carousel').insert(bannerData)
+      bannerData.video_url = finalFileUrl
+      bannerData.image_url = null // Clear image_url when switching to video
     }
 
-    setShowForm(false)
-    setEditingBanner(null)
-    setFormData({ name: '', description: '', image_url: '', video_url: '', media_type: 'image', product_link: '', is_active: true })
-    fetchBanners()
+    try {
+      if (editingBanner) {
+        const { error } = await supabase
+          .from('products_carousel')
+          .update(bannerData)
+          .eq('id', editingBanner.id)
+        if (error) throw error
+      } else {
+        const { error } = await supabase
+          .from('products_carousel')
+          .insert(bannerData)
+        if (error) throw error
+      }
+
+      // Reset form and close modal
+      setShowForm(false)
+      setEditingBanner(null)
+      setFormData({ name: '', media_type: 'image', is_active: true })
+      setUploadedFileUrl('')
+      
+      // Refresh banners list
+      await fetchBanners()
+      
+      // Show success message
+      alert(editingBanner ? 'Banner updated successfully!' : 'Banner added successfully!')
+    } catch (error: any) {
+      console.error('Error saving banner:', error)
+      alert('Failed to save banner: ' + (error.message || 'Unknown error'))
+    }
   }
 
   const deleteBanner = async (id: string) => {
@@ -66,15 +222,21 @@ export const BannersPage = () => {
   const openEditForm = (banner: Product) => {
     setEditingBanner(banner)
     setFormData({
-      name: banner.name,
-      description: banner.description || '',
-      image_url: banner.image_url || '',
-      video_url: banner.video_url || '',
+      name: banner.name || '',
       media_type: banner.media_type,
-      product_link: banner.product_link || '',
       is_active: banner.is_active
     })
+    // Don't set uploadedFileUrl for editing - let user choose to upload new file or keep existing
+    setUploadedFileUrl('')
     setShowForm(true)
+  }
+
+  const closeForm = () => {
+    setShowForm(false)
+    setEditingBanner(null)
+    setFormData({ name: '', media_type: 'image', is_active: true })
+    setUploadedFileUrl('')
+    setUploading(false)
   }
 
   return (
@@ -114,7 +276,7 @@ export const BannersPage = () => {
                       <Video className="w-6 h-6 text-gray-400" />
                     </div>
                   ) : banner.image_url ? (
-                    <img src={banner.image_url} alt={banner.name} className="w-full h-full object-cover" />
+                    <img src={banner.image_url} alt={banner.name} className="w-full h-full object-cover" loading="lazy" decoding="async" />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center">
                       <Image className="w-6 h-6 text-gray-400" />
@@ -122,15 +284,8 @@ export const BannersPage = () => {
                   )}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2">
-                    <p className="font-medium text-gray-900">{banner.name}</p>
-                    {banner.product_link && (
-                      <a href={banner.product_link} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-gray-600">
-                        <ExternalLink className="w-4 h-4" />
-                      </a>
-                    )}
-                  </div>
-                  <p className="text-sm text-gray-500 truncate">{banner.description || 'No description'}</p>
+                  <p className="font-medium text-gray-900">{banner.name || `Banner ${banner.id.slice(0, 8)}`}</p>
+                  <p className="text-sm text-gray-500">{banner.media_type === 'image' ? 'Image' : 'Video'}</p>
                 </div>
                 <div className="flex items-center gap-2">
                   <button
@@ -163,68 +318,106 @@ export const BannersPage = () => {
             </h2>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Banner Name *</label>
-                <input
-                  type="text"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="input"
-                  placeholder="Summer Sale Banner"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
-                <textarea
-                  value={formData.description}
-                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  className="input"
-                  rows={2}
-                  placeholder="Banner description..."
-                />
-              </div>
-              <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Media Type</label>
                 <select
                   value={formData.media_type}
-                  onChange={(e) => setFormData({ ...formData, media_type: e.target.value as 'image' | 'video' })}
+                  onChange={(e) => {
+                    setFormData({ ...formData, media_type: e.target.value as 'image' | 'video' })
+                    setUploadedFileUrl('') // Clear uploaded file when switching type
+                  }}
                   className="input"
                 >
                   <option value="image">Image</option>
                   <option value="video">Video</option>
                 </select>
               </div>
+
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Image URL</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Upload {formData.media_type === 'image' ? 'Image' : 'Video'} *
+                </label>
                 <input
-                  type="url"
-                  value={formData.image_url}
-                  onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
+                  type="file"
+                  accept={formData.media_type === 'image' ? 'image/*' : 'video/*'}
+                  onChange={(e) => {
+                    const file = e.target.files?.[0]
+                    if (!file) return
+
+                    // Immediately allow UI to continue - process file asynchronously
+                    // Use requestAnimationFrame to ensure UI is responsive
+                    requestAnimationFrame(() => {
+                      // Then use setTimeout to process in next event loop
+                      setTimeout(() => {
+                        handleFileUpload(file).catch((error) => {
+                          console.error('File upload error:', error)
+                          setTimeout(() => {
+                            alert('Failed to process file. Please try again.')
+                          }, 0)
+                          setUploading(false)
+                          uploadInProgressRef.current = false
+                        })
+                      }, 0)
+                    })
+
+                    // Reset input after file processing starts (not immediately)
+                    setTimeout(() => {
+                      const input = e.target as HTMLInputElement
+                      if (input) {
+                        input.value = ''
+                      }
+                    }, 500) // Longer delay to avoid interfering with file selection
+                  }}
                   className="input"
-                  placeholder="https://..."
+                  disabled={uploading}
+                />
+                {uploading && (
+                  <div className="mt-2 flex items-center gap-2 text-sm text-gray-600">
+                    <div className="w-4 h-4 border-2 border-primary-500 border-t-transparent rounded-full animate-spin" />
+                    <span>Uploading file...</span>
+                  </div>
+                )}
+                {uploadedFileUrl && !uploading && (
+                  <div className="mt-2">
+                    <p className="text-xs text-gray-500 mb-1">Preview:</p>
+                    {formData.media_type === 'image' ? (
+                      <img src={uploadedFileUrl} alt="Preview" className="w-full h-32 object-cover rounded-lg border border-gray-200" loading="eager" decoding="async" />
+                    ) : (
+                      <video src={uploadedFileUrl} controls className="w-full h-32 rounded-lg border border-gray-200" />
+                    )}
+                    <button
+                      type="button"
+                      onClick={() => setUploadedFileUrl('')}
+                      className="mt-1 text-xs text-red-600 hover:text-red-700"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                )}
+                {editingBanner && !uploadedFileUrl && !uploading && (
+                  <div className="mt-2">
+                    <p className="text-xs text-gray-500 mb-1">Current file:</p>
+                    {formData.media_type === 'image' && editingBanner.image_url ? (
+                      <img src={editingBanner.image_url} alt="Current" className="w-full h-32 object-cover rounded-lg border border-gray-200" loading="eager" decoding="async" />
+                    ) : formData.media_type === 'video' && editingBanner.video_url ? (
+                      <video src={editingBanner.video_url} controls className="w-full h-32 rounded-lg border border-gray-200" />
+                    ) : (
+                      <p className="text-xs text-gray-400">No {formData.media_type} file</p>
+                    )}
+                  </div>
+                )}
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Banner Name <span className="text-gray-400">(Optional)</span></label>
+                <input
+                  type="text"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  className="input"
+                  placeholder="Auto-generated if empty"
                 />
               </div>
-              {formData.media_type === 'video' && (
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Video URL</label>
-                  <input
-                    type="url"
-                    value={formData.video_url}
-                    onChange={(e) => setFormData({ ...formData, video_url: e.target.value })}
-                    className="input"
-                    placeholder="https://youtube.com/..."
-                  />
-                </div>
-              )}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Link URL</label>
-                <input
-                  type="url"
-                  value={formData.product_link}
-                  onChange={(e) => setFormData({ ...formData, product_link: e.target.value })}
-                  className="input"
-                  placeholder="https://shop.com/sale"
-                />
-              </div>
+
               <div className="flex items-center gap-2">
                 <input
                   type="checkbox"
@@ -238,13 +431,18 @@ export const BannersPage = () => {
             </div>
             <div className="mt-6 flex gap-3">
               <button
-                onClick={() => { setShowForm(false); setEditingBanner(null); }}
+                onClick={closeForm}
                 className="flex-1 btn-secondary"
+                disabled={uploading}
               >
                 Cancel
               </button>
-              <button onClick={saveBanner} className="flex-1 btn-primary">
-                {editingBanner ? 'Save Changes' : 'Add Banner'}
+              <button 
+                onClick={saveBanner} 
+                className={`flex-1 btn-primary ${(uploading || (!uploadedFileUrl && !editingBanner)) ? 'opacity-50 cursor-not-allowed' : ''}`}
+                disabled={uploading || (!uploadedFileUrl && !editingBanner)}
+              >
+                {uploading ? 'Uploading...' : editingBanner ? 'Save Changes' : 'Add Banner'}
               </button>
             </div>
           </div>

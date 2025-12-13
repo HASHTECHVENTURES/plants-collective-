@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react'
-import { supabase, AppConfig } from '@/lib/supabase'
-import { Settings, Save, AlertTriangle, Smartphone, Mail } from 'lucide-react'
+import { supabase } from '@/lib/supabase'
+import { Save, AlertTriangle, Smartphone, Mail } from 'lucide-react'
 
 export const ConfigPage = () => {
-  const [configs, setConfigs] = useState<AppConfig[]>([])
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   
@@ -30,8 +29,6 @@ export const ConfigPage = () => {
     }
 
     if (data) {
-      setConfigs(data)
-      
       // Parse configs
       const maintenance = data.find(c => c.key === 'maintenance_mode')?.value
       if (maintenance) {
