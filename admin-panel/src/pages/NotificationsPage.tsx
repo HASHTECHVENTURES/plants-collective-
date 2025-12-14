@@ -47,16 +47,23 @@ export const NotificationsPage = () => {
   }
 
   const sendNotification = async () => {
+    console.log('=== sendNotification FUNCTION CALLED ===')
+    console.log('Form data:', formData)
+    console.log('Target type:', targetType)
+    
     if (!formData.title || !formData.message) {
+      console.log('Validation failed: missing title or message')
       alert('Please fill in title and message')
       return
     }
     if (targetType === 'specific' && selectedUsers.length === 0) {
+      console.log('Validation failed: no users selected')
       alert('Please select at least one user')
       return
     }
 
     // Set loading state
+    console.log('Setting saving to true...')
     setSaving(true)
     console.log('Starting notification send...')
 
@@ -126,12 +133,9 @@ export const NotificationsPage = () => {
             message: formData.message
           })
           
-          // Add timeout to prevent freezing
-          const timeoutPromise = new Promise((_, reject) => 
-            setTimeout(() => reject(new Error('Push notification timeout after 30 seconds')), 30000)
-          )
-          
-          const functionPromise = supabase.functions.invoke('send-push-notification', {
+          // Send push notification (don't wait for it - make it non-blocking)
+          // Use fire-and-forget approach to prevent freezing
+          supabase.functions.invoke('send-push-notification', {
             body: {
               user_ids: targetType === 'all' ? undefined : userIds,
               title: formData.title,
@@ -142,9 +146,20 @@ export const NotificationsPage = () => {
                 notification_id: notification.id
               }
             }
+          }).then(({ data, error: functionError }) => {
+            if (functionError) {
+              console.error('Edge Function error:', functionError)
+            } else {
+              console.log('Push notifications sent successfully:', data)
+              if (data?.sent === 0) {
+                console.warn('⚠️ No device tokens found')
+              } else if (data?.sent) {
+                console.log(`✅ Push notification sent to ${data.sent} device(s)!`)
+              }
+            }
+          }).catch((pushError) => {
+            console.error('Error sending push notifications:', pushError)
           })
-          
-          const { data, error: functionError } = await Promise.race([functionPromise, timeoutPromise]) as any
           
           if (functionError) {
             console.error('Edge Function error:', functionError)
@@ -462,7 +477,15 @@ export const NotificationsPage = () => {
                 Cancel
               </button>
               <button 
-                onClick={sendNotification} 
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                  console.log('=== BUTTON CLICKED ===')
+                  console.log('Form data:', formData)
+                  console.log('Target type:', targetType)
+                  sendNotification()
+                }} 
                 disabled={saving}
                 className="flex-1 btn-primary flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
