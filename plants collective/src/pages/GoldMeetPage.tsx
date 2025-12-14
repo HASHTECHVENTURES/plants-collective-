@@ -9,7 +9,6 @@ type VideoItem = {
   id: string;
   title: string;
   speaker: string;
-  category: string;
   date: string;
   duration: string;
   embedUrl: string;
@@ -20,9 +19,7 @@ type VideoItem = {
 const GoldMeetPage = () => {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("All");
   const [videos, setVideos] = useState<VideoItem[]>([]);
-  const [categories, setCategories] = useState<string[]>(["All"]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -35,39 +32,13 @@ const GoldMeetPage = () => {
       }
     });
 
-    const unsubscribeCategories = realtimeSyncService.subscribeToGoldMeetCategories((payload) => {
-      if (payload.type === 'INSERT' || payload.type === 'UPDATE' || payload.type === 'DELETE') {
-        fetchData(); // Refresh when admin makes changes
-      }
-    });
-
     return () => {
       unsubscribeSessions();
-      unsubscribeCategories();
     };
   }, []);
 
   const fetchData = async () => {
     try {
-      // Fetch categories from Supabase (no hardcoded fallbacks)
-      const { data: categoriesData, error: categoriesError } = await supabase
-        .from('gold_meet_categories')
-        .select('*')
-        .eq('is_active', true)
-        .order('display_order', { ascending: true });
-
-      if (categoriesError) {
-        console.error('Error fetching categories:', categoriesError);
-      }
-
-      // Only use categories from database - no hardcoded fallbacks
-      if (categoriesData && categoriesData.length > 0) {
-        setCategories(["All", ...categoriesData.map((c: any) => c.name)]);
-      } else {
-        // No categories in database - only show "All"
-        setCategories(["All"]);
-      }
-
       // Fetch sessions
       const { data, error } = await supabase
         .from('gold_meet_sessions')
@@ -85,7 +56,6 @@ const GoldMeetPage = () => {
         id: session.id,
         title: session.title,
         speaker: session.speaker,
-        category: session.category,
         date: session.session_date || '',
         duration: session.duration || '',
         embedUrl: session.youtube_url,
@@ -96,8 +66,6 @@ const GoldMeetPage = () => {
       setVideos(formattedVideos);
     } catch (error) {
       console.error('Error fetching data:', error);
-      // On error, show empty state - no hardcoded data
-      setCategories(["All"]);
       setVideos([]);
     } finally {
       setLoading(false);
@@ -107,15 +75,13 @@ const GoldMeetPage = () => {
   const filteredVideos = useMemo(() => {
     const term = search.toLowerCase();
     return videos.filter((video) => {
-      const matchesCategory = selectedCategory === "All" || video.category === selectedCategory;
       const matchesSearch =
         !term ||
         video.title.toLowerCase().includes(term) ||
-        video.speaker.toLowerCase().includes(term) ||
-        video.category.toLowerCase().includes(term);
-      return matchesCategory && matchesSearch;
+        video.speaker.toLowerCase().includes(term);
+      return matchesSearch;
     });
-  }, [search, selectedCategory, videos]);
+  }, [search, videos]);
 
   const primaryVideo = filteredVideos[0] ?? videos[0];
   const upcoming = filteredVideos.slice(1);
@@ -147,7 +113,7 @@ const GoldMeetPage = () => {
       </header>
 
       <main className="max-w-6xl mx-auto px-4 pb-10 space-y-6">
-        <div className="bg-white rounded-2xl shadow-sm p-4 space-y-4">
+        <div className="bg-white rounded-2xl shadow-sm p-4">
           <div className="relative">
             <Search className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
             <input
@@ -156,21 +122,6 @@ const GoldMeetPage = () => {
               placeholder="Search sessions, experts, topics..."
               className="w-full border border-gray-200 rounded-lg pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
             />
-          </div>
-          <div className="flex gap-2 overflow-x-auto pb-2 -mx-1 px-1 scrollbar-hide">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setSelectedCategory(cat)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap border transition-all flex-shrink-0 ${
-                  selectedCategory === cat
-                    ? "bg-green-500 text-white border-green-500 shadow-sm"
-                    : "bg-white text-gray-700 border-gray-200 hover:border-green-300 hover:bg-green-50"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
           </div>
         </div>
 
@@ -205,7 +156,7 @@ const GoldMeetPage = () => {
                 <div className="flex items-center gap-2 text-xs text-gray-500">
                   <CalendarClock className="w-4 h-4" />
                   <span>{primaryVideo.date}</span>
-                  <span>�</span>
+                  <span>•</span>
                   <span>{primaryVideo.duration}</span>
                 </div>
                 <h2 className="text-lg font-semibold text-gray-900">{primaryVideo.title}</h2>
@@ -226,7 +177,6 @@ const GoldMeetPage = () => {
                   <button
                     key={video.id}
                     onClick={() => {
-                      setSelectedCategory("All");
                       setSearch(video.title);
                     }}
                     className="w-full text-left flex gap-3 rounded-lg border border-gray-100 hover:border-green-200 hover:bg-green-50/40 p-2 transition"
@@ -247,10 +197,8 @@ const GoldMeetPage = () => {
                       <p className="text-xs text-gray-600">{video.speaker}</p>
                       <div className="flex items-center gap-2 text-[11px] text-gray-500">
                         <span>{video.date}</span>
-                        <span>�</span>
+                        <span>•</span>
                         <span>{video.duration}</span>
-                        <span>�</span>
-                        <span className="capitalize">{video.category}</span>
                       </div>
                     </div>
                   </button>

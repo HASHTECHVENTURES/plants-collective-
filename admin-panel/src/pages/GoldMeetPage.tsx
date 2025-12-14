@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase'
-import { Plus, Trash2, Edit2, Video, Play, Radio, GripVertical, Settings, X } from 'lucide-react'
+import { Plus, Trash2, Edit2, Video, Play, Radio, GripVertical, X } from 'lucide-react'
 
 interface GoldMeetSession {
   id: string
   title: string
   speaker: string
-  category: string
   session_date: string
   duration: string
   youtube_url: string
@@ -17,25 +16,14 @@ interface GoldMeetSession {
   created_at: string
 }
 
-interface Category {
-  id: string
-  name: string
-  display_order: number
-  is_active: boolean
-}
-
 export const GoldMeetPage = () => {
   const [sessions, setSessions] = useState<GoldMeetSession[]>([])
-  const [categories, setCategories] = useState<Category[]>([])
   const [loading, setLoading] = useState(true)
   const [showForm, setShowForm] = useState(false)
-  const [showCategoryManager, setShowCategoryManager] = useState(false)
-  const [newCategoryName, setNewCategoryName] = useState('')
   const [editingSession, setEditingSession] = useState<GoldMeetSession | null>(null)
   const [formData, setFormData] = useState({
     title: '',
     speaker: '',
-    category: '',
     session_date: '',
     duration: '',
     youtube_url: '',
@@ -58,59 +46,7 @@ export const GoldMeetPage = () => {
 
     if (sessionsData) setSessions(sessionsData)
     
-    // Fetch categories from database
-    const { data: categoriesData } = await supabase
-      .from('gold_meet_categories')
-      .select('*')
-      .order('display_order', { ascending: true })
-
-    if (categoriesData && categoriesData.length > 0) {
-      setCategories(categoriesData)
-      if (!formData.category) {
-        setFormData(prev => ({ ...prev, category: categoriesData[0].name }))
-      }
-    } else {
-      // No categories in database - set empty array (user must create categories first)
-      setCategories([])
-      // Clear category selection if no categories exist
-      if (formData.category) {
-        setFormData(prev => ({ ...prev, category: '' }))
-      }
-    }
-    
     setLoading(false)
-  }
-
-  // Category Management
-  const addCategory = async () => {
-    if (!newCategoryName.trim()) return
-    
-    const { error } = await supabase.from('gold_meet_categories').insert({
-      name: newCategoryName.trim(),
-      display_order: categories.length,
-      is_active: true
-    })
-    
-    if (!error) {
-      setNewCategoryName('')
-      fetchData()
-    }
-  }
-
-  const deleteCategory = async (id: string) => {
-    if (!confirm('Delete this category? Sessions with this category will keep their category name.')) return
-    await supabase.from('gold_meet_categories').delete().eq('id', id)
-    fetchData()
-  }
-
-  const toggleCategoryActive = async (id: string, is_active: boolean) => {
-    await supabase.from('gold_meet_categories').update({ is_active: !is_active }).eq('id', id)
-    fetchData()
-  }
-
-  const updateCategoryName = async (id: string, name: string) => {
-    await supabase.from('gold_meet_categories').update({ name }).eq('id', id)
-    fetchData()
   }
 
   const extractYouTubeId = (input: string) => {
@@ -149,7 +85,6 @@ export const GoldMeetPage = () => {
     const sessionData = {
       title: formData.title,
       speaker: formData.speaker,
-      category: formData.category,
       session_date: formData.session_date,
       duration: formData.is_live ? 'Live' : formData.duration,
       youtube_url: embedUrl,
@@ -167,7 +102,7 @@ export const GoldMeetPage = () => {
 
     setShowForm(false)
     setEditingSession(null)
-    setFormData({ title: '', speaker: '', category: categories[0]?.name || '', session_date: '', duration: '', youtube_url: '', is_live: false, is_active: true })
+    setFormData({ title: '', speaker: '', session_date: '', duration: '', youtube_url: '', is_live: false, is_active: true })
     fetchData()
   }
 
@@ -196,7 +131,6 @@ export const GoldMeetPage = () => {
     setFormData({
       title: session.title,
       speaker: session.speaker,
-      category: session.category,
       session_date: session.session_date || '',
       duration: session.duration || '',
       youtube_url: session.youtube_url,
@@ -206,8 +140,6 @@ export const GoldMeetPage = () => {
     setShowForm(true)
   }
 
-  const activeCategories = categories.filter(c => c.is_active)
-
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -216,28 +148,11 @@ export const GoldMeetPage = () => {
           <h1 className="text-2xl font-bold text-gray-900">Gold Meet Sessions</h1>
           <p className="text-gray-500">Manage live & recorded video sessions</p>
         </div>
-        <div className="flex gap-2">
-          <button onClick={() => setShowCategoryManager(true)} className="btn-secondary flex items-center gap-2">
-            <Settings className="w-4 h-4" />
-            Categories
-          </button>
-          <button onClick={() => setShowForm(true)} className="btn-primary flex items-center gap-2">
-            <Plus className="w-4 h-4" />
-            Add Session
-          </button>
-        </div>
+        <button onClick={() => setShowForm(true)} className="btn-primary flex items-center gap-2">
+          <Plus className="w-4 h-4" />
+          Add Session
+        </button>
       </div>
-
-      {/* Current Categories Preview */}
-      {activeCategories.length > 0 && (
-        <div className="flex flex-wrap gap-2">
-          {activeCategories.map((cat) => (
-            <span key={cat.id} className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">
-              {cat.name}
-            </span>
-          ))}
-        </div>
-      )}
 
       {/* Sessions List */}
       <div className="card">
@@ -276,12 +191,7 @@ export const GoldMeetPage = () => {
                   )}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-1">
-                    <p className="font-medium text-gray-900">{session.title}</p>
-                    <span className="px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-600">
-                      {session.category}
-                    </span>
-                  </div>
+                  <p className="font-medium text-gray-900 mb-1">{session.title}</p>
                   <p className="text-sm text-gray-500">
                     {session.speaker} • {session.session_date} • {session.duration}
                   </p>
@@ -345,44 +255,15 @@ export const GoldMeetPage = () => {
                   placeholder="Dr. A. Sharma"
                 />
               </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
-                  {activeCategories.length > 0 ? (
-                    <select
-                      value={formData.category}
-                      onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                      className="input"
-                    >
-                      {activeCategories.map(cat => (
-                        <option key={cat.id} value={cat.name}>{cat.name}</option>
-                      ))}
-                    </select>
-                  ) : (
-                    <div className="space-y-2">
-                      <input
-                        type="text"
-                        value={formData.category}
-                        onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                        className="input"
-                        placeholder="Enter category name..."
-                      />
-                      <p className="text-xs text-gray-500">
-                        No categories yet. <button type="button" onClick={() => { setShowForm(false); setShowCategoryManager(true); }} className="text-primary-600 hover:underline">Create categories first</button>
-                      </p>
-                    </div>
-                  )}
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
-                  <input
-                    type="text"
-                    value={formData.session_date}
-                    onChange={(e) => setFormData({ ...formData, session_date: e.target.value })}
-                    className="input"
-                    placeholder="Today, Tomorrow, Friday..."
-                  />
-                </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                <input
+                  type="text"
+                  value={formData.session_date}
+                  onChange={(e) => setFormData({ ...formData, session_date: e.target.value })}
+                  className="input"
+                  placeholder="Today, Tomorrow, Friday..."
+                />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">YouTube URL or Embed Code *</label>
@@ -451,79 +332,6 @@ OR
                 {editingSession ? 'Save Changes' : 'Add Session'}
               </button>
             </div>
-          </div>
-        </div>
-      )}
-
-      {/* Category Manager Modal */}
-      {showCategoryManager && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-xl max-w-md w-full p-6 max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-bold">Manage Categories</h2>
-              <button onClick={() => setShowCategoryManager(false)} className="p-2 hover:bg-gray-100 rounded-lg">
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-            
-            {/* Add New Category */}
-            <div className="flex gap-2 mb-4">
-              <input
-                type="text"
-                value={newCategoryName}
-                onChange={(e) => setNewCategoryName(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && addCategory()}
-                placeholder="New category name..."
-                className="input flex-1"
-              />
-              <button onClick={addCategory} className="btn-primary px-4">
-                <Plus className="w-4 h-4" />
-              </button>
-            </div>
-
-            {/* Categories List */}
-            <div className="space-y-2">
-              {categories.length === 0 ? (
-                <div className="text-center py-8 text-gray-500">
-                  <p className="mb-2">No categories yet.</p>
-                  <p className="text-sm">Add your first category above to get started.</p>
-                </div>
-              ) : (
-                categories.map((cat) => (
-                  <div key={cat.id} className="flex items-center gap-2 p-3 bg-gray-50 rounded-lg">
-                    <GripVertical className="w-4 h-4 text-gray-400 cursor-move" />
-                    <input
-                      type="text"
-                      defaultValue={cat.name}
-                      onBlur={(e) => {
-                        if (e.target.value !== cat.name) {
-                          updateCategoryName(cat.id, e.target.value)
-                        }
-                      }}
-                      className="flex-1 bg-transparent border-none focus:outline-none focus:ring-2 focus:ring-primary-500 rounded px-2 py-1"
-                    />
-                    <button
-                      onClick={() => toggleCategoryActive(cat.id, cat.is_active)}
-                      className={`px-2 py-1 rounded text-xs font-medium ${
-                        cat.is_active ? 'bg-green-100 text-green-700' : 'bg-gray-200 text-gray-500'
-                      }`}
-                    >
-                      {cat.is_active ? 'Active' : 'Hidden'}
-                    </button>
-                    <button
-                      onClick={() => deleteCategory(cat.id)}
-                      className="p-1 hover:bg-red-50 rounded text-red-500"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
-                  </div>
-                ))
-              )}
-            </div>
-
-            <p className="text-xs text-gray-500 mt-4">
-              💡 Click on category name to edit. Changes save automatically.
-            </p>
           </div>
         </div>
       )}
