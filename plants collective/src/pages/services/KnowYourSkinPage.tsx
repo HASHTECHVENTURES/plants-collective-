@@ -179,7 +179,7 @@ const KnowYourSkinPage = () => {
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-purple-50">
       <div className="bg-white/80 backdrop-blur-sm shadow-sm border-b border-gray-200/50 sticky top-0 z-40 safe-area-top nav-safe-area">
         <div className="max-w-md mx-auto px-4 py-4">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center justify-between">
             <button
               onClick={() => {
                 if (window.history.length > 1) {
@@ -190,11 +190,15 @@ const KnowYourSkinPage = () => {
               }}
               aria-label="Go back"
               title="Go back"
-              className="p-2 rounded-full hover:bg-gray-100 transition"
+              className="p-2 hover:bg-gray-100 rounded-full transition-colors"
             >
-              <ArrowLeft className="w-5 h-5 text-gray-700" />
+              <ArrowLeft className="w-6 h-6 text-gray-600" />
             </button>
-            <h1 className="text-2xl font-bold text-gray-900">Know Your Skin</h1>
+            <div className="text-center">
+              <h1 className="text-xl font-bold text-gray-800">Know Your Skin</h1>
+              <p className="text-sm text-gray-500">{useLocalMcq ? 'AI-powered analysis' : 'Embedded analysis'}</p>
+            </div>
+            <div className="w-10" />
           </div>
         </div>
       </div>
