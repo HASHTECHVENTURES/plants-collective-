@@ -8,6 +8,7 @@ export const NotificationsPage = () => {
   const { admin } = useAuth()
   const [notifications, setNotifications] = useState<Notification[]>([])
   const [loading, setLoading] = useState(true)
+  const [saving, setSaving] = useState(false)
   const [showForm, setShowForm] = useState(false)
   const [users, setUsers] = useState<Profile[]>([])
   const [searchQuery, setSearchQuery] = useState('')
