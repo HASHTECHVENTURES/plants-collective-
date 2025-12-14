@@ -43,7 +43,13 @@ class RealtimeSyncService {
         },
         (payload) => {
           console.log('App config real-time event:', payload);
-          callback(payload);
+          // Transform Supabase payload to our RealtimePayload format
+          const transformedPayload: RealtimePayload = {
+            type: payload.eventType as 'INSERT' | 'UPDATE' | 'DELETE',
+            new: payload.new,
+            old: payload.old
+          };
+          callback(transformedPayload);
         }
       )
       .subscribe((status, err) => {

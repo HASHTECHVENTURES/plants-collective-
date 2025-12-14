@@ -46,7 +46,11 @@ export const NotificationsPage = () => {
     if (data) setUsers(data)
   }
 
-  const sendNotification = async () => {
+  const sendNotification = async (e?: React.MouseEvent) => {
+    if (e) {
+      e.preventDefault()
+      e.stopPropagation()
+    }
     console.log('=== sendNotification FUNCTION CALLED ===')
     console.log('Form data:', formData)
     console.log('Target type:', targetType)
