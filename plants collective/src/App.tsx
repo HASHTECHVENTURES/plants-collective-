@@ -12,6 +12,7 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 import type { User, LoginResult, AuthContextType } from "@/types";
 import { App as CapacitorApp } from '@capacitor/app';
 import { Capacitor } from '@capacitor/core';
+import { openExternalLink } from "@/lib/externalLinkHandler";
 
 // Pages
 import AuthPage from "./pages/AuthPage";
@@ -20,6 +21,7 @@ import ProfilePage from "./pages/ProfilePage";
 import CommunityPage from "./pages/CommunityPage";
 import AskPlantsCollectivePage from "./pages/AskPlantsCollectivePage";
 import IngredientsPage from "./pages/services/IngredientsPage";
+import KnowYourIngredientsPage from "./pages/services/KnowYourIngredientsPage";
 import HelpFeedbackPage from "./pages/HelpFeedbackPage";
 // Removed old Enhanced Skin Analysis pages
 import ProgressTrackingPage from "./pages/ProgressTrackingPage";
@@ -312,6 +314,7 @@ const App = () => {
                   <Route path="/progress-tracking" element={user ? <ProgressTrackingPage /> : <AuthPage />} />
                   <Route path="/ask-plants-collective" element={user ? <AskPlantsCollectivePage /> : <AuthPage />} />
                   <Route path="/gold-meet" element={user ? <GoldMeetPage /> : <AuthPage />} />
+                  <Route path="/know-your-ingredients" element={user ? <KnowYourIngredientsPage /> : <AuthPage />} />
                   <Route path="/ingredients" element={user ? <IngredientsPage /> : <AuthPage />} />
                   <Route path="/help" element={user ? <HelpFeedbackPage /> : <AuthPage />} />
                   <Route path="/blogs" element={user ? <BlogsPage /> : <AuthPage />} />
