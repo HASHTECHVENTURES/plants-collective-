@@ -94,35 +94,39 @@ const App = () => {
   const [maintenanceMessage, setMaintenanceMessage] = useState('We are currently under maintenance. Please check back soon.');
 
   useEffect(() => {
-    // Check for stored user session using safe storage wrapper
-    const storedUser = storage.get('plants-collective-user');
-    if (storedUser) {
-      try {
-        const userData = JSON.parse(storedUser);
-        setUser(userData);
-      } catch (error) {
-        // Invalid JSON, clear it
-        storage.remove('plants-collective-user');
+    const initializeApp = async () => {
+      // Check for stored user session using safe storage wrapper
+      const storedUser = storage.get('plants-collective-user');
+      if (storedUser) {
+        try {
+          const userData = JSON.parse(storedUser);
+          setUser(userData);
+        } catch (error) {
+          // Invalid JSON, clear it
+          storage.remove('plants-collective-user');
+        }
       }
-    }
 
-    // Check maintenance mode
-    checkMaintenanceMode();
+      // Check maintenance mode first (before showing app)
+      await checkMaintenanceMode();
 
-    // Subscribe to maintenance mode changes
-    const unsubscribe = realtimeSyncService.subscribeToAppConfig((payload) => {
-      if (payload.type === 'UPDATE' || payload.type === 'INSERT') {
-        checkMaintenanceMode();
-      }
-    });
+      // Subscribe to maintenance mode changes
+      const unsubscribe = realtimeSyncService.subscribeToAppConfig((payload) => {
+        if (payload.type === 'UPDATE' || payload.type === 'INSERT') {
+          checkMaintenanceMode();
+        }
+      });
 
-    setLoading(false);
+      setLoading(false);
 
-    // Cleanup real-time subscriptions on app unmount
-    return () => {
-      unsubscribe();
-      realtimeSyncService.cleanup();
+      // Cleanup real-time subscriptions on app unmount
+      return () => {
+        unsubscribe();
+        realtimeSyncService.cleanup();
+      };
     };
+
+    initializeApp();
   }, []);
 
   const checkMaintenanceMode = async () => {
