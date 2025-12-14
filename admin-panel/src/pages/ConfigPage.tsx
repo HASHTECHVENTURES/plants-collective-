@@ -56,34 +56,39 @@ export const ConfigPage = () => {
     setSaving(true)
     console.log('Saving configs...')
 
-    const results = await Promise.all([
-      supabase.from('app_config').upsert({
-        key: 'maintenance_mode',
-        value: { enabled: maintenanceMode, message: maintenanceMessage },
-        updated_at: new Date().toISOString()
-      }, { onConflict: 'key' }),
+    try {
+      const results = await Promise.all([
+        supabase.from('app_config').upsert({
+          key: 'maintenance_mode',
+          value: { enabled: maintenanceMode, message: maintenanceMessage },
+          updated_at: new Date().toISOString()
+        }, { onConflict: 'key' }),
 
-      supabase.from('app_config').upsert({
-        key: 'app_version',
-        value: { min_version: minVersion, force_update: forceUpdate, current_version: '1.0.0' },
-        updated_at: new Date().toISOString()
-      }, { onConflict: 'key' }),
+        supabase.from('app_config').upsert({
+          key: 'app_version',
+          value: { min_version: minVersion, force_update: forceUpdate, current_version: '1.0.0' },
+          updated_at: new Date().toISOString()
+        }, { onConflict: 'key' }),
 
-      supabase.from('app_config').upsert({
-        key: 'contact_info',
-        value: { email: contactEmail, phone: contactPhone, whatsapp: contactWhatsapp },
-        updated_at: new Date().toISOString()
-      }, { onConflict: 'key' })
-    ])
+        supabase.from('app_config').upsert({
+          key: 'contact_info',
+          value: { email: contactEmail, phone: contactPhone, whatsapp: contactWhatsapp },
+          updated_at: new Date().toISOString()
+        }, { onConflict: 'key' })
+      ])
 
-    console.log('Save results:', results)
-    
-    const errors = results.filter(r => r.error)
-    if (errors.length > 0) {
-      console.error('Save errors:', errors)
-      alert('Error saving: ' + errors.map(e => e.error?.message).join(', '))
-    } else {
-      alert('Settings saved successfully!')
+      console.log('Save results:', results)
+      
+      const errors = results.filter(r => r.error)
+      if (errors.length > 0) {
+        console.error('Save errors:', errors)
+        alert('Error saving: ' + errors.map(e => e.error?.message).join(', '))
+      } else {
+        alert('Settings saved successfully!')
+      }
+    } catch (error) {
+      console.error('Error saving configs:', error)
+      alert('Failed to save settings. Please try again.')
     }
 
     setSaving(false)
