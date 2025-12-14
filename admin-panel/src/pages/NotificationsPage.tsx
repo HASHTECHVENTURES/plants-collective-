@@ -479,12 +479,8 @@ export const NotificationsPage = () => {
               <button 
                 type="button"
                 onClick={(e) => {
-                  e.preventDefault()
-                  e.stopPropagation()
-                  console.log('=== BUTTON CLICKED ===')
-                  console.log('Form data:', formData)
-                  console.log('Target type:', targetType)
-                  sendNotification()
+                  console.log('🟢 BUTTON CLICKED - onClick handler fired')
+                  sendNotification(e)
                 }} 
                 disabled={saving}
                 className="flex-1 btn-primary flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
