@@ -49,17 +49,23 @@ const GoldMeetPage = () => {
 
   const fetchData = async () => {
     try {
-      // Fetch categories
-      const { data: categoriesData } = await supabase
+      // Fetch categories from Supabase (no hardcoded fallbacks)
+      const { data: categoriesData, error: categoriesError } = await supabase
         .from('gold_meet_categories')
         .select('*')
         .eq('is_active', true)
         .order('display_order', { ascending: true });
 
+      if (categoriesError) {
+        console.error('Error fetching categories:', categoriesError);
+      }
+
+      // Only use categories from database - no hardcoded fallbacks
       if (categoriesData && categoriesData.length > 0) {
         setCategories(["All", ...categoriesData.map((c: any) => c.name)]);
       } else {
-        setCategories(["All", "Skincare", "Haircare", "Nutrition", "Wellness", "Q&A"]);
+        // No categories in database - only show "All"
+        setCategories(["All"]);
       }
 
       // Fetch sessions
@@ -69,7 +75,11 @@ const GoldMeetPage = () => {
         .eq('is_active', true)
         .order('display_order', { ascending: true });
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error fetching sessions:', error);
+        setVideos([]);
+        return;
+      }
 
       const formattedVideos: VideoItem[] = (data || []).map((session: any) => ({
         id: session.id,
@@ -86,19 +96,9 @@ const GoldMeetPage = () => {
       setVideos(formattedVideos);
     } catch (error) {
       console.error('Error fetching data:', error);
-      // Fallback to default
-      setCategories(["All", "Skincare", "Haircare", "Nutrition", "Wellness", "Q&A"]);
-      setVideos([{
-        id: "default",
-        title: "Welcome to Gold Meet",
-        speaker: "Plants Collective",
-        category: "Skincare",
-        date: "Coming Soon",
-        duration: "Live",
-        embedUrl: "https://www.youtube.com/embed/AKeUssuu3Is",
-        thumbnail: "https://img.youtube.com/vi/AKeUssuu3Is/hqdefault.jpg",
-        live: false,
-      }]);
+      // On error, show empty state - no hardcoded data
+      setCategories(["All"]);
+      setVideos([]);
     } finally {
       setLoading(false);
     }
