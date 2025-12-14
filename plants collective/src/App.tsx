@@ -127,23 +127,35 @@ const App = () => {
 
   const checkMaintenanceMode = async () => {
     try {
+      console.log('Checking maintenance mode...');
       const { data, error } = await supabase
         .from('app_config')
         .select('*')
         .eq('key', 'maintenance_mode')
-        .single();
+        .maybeSingle();
+
+      console.log('Maintenance mode query result:', { data, error });
 
       if (error) {
         console.error('Error checking maintenance mode:', error);
+        // If table doesn't exist or error, assume maintenance is off
+        setMaintenanceMode(false);
         return;
       }
 
       if (data && data.value) {
-        setMaintenanceMode(data.value.enabled || false);
-        setMaintenanceMessage(data.value.message || 'We are currently under maintenance. Please check back soon.');
+        const isEnabled = data.value.enabled === true || data.value.enabled === 'true';
+        const message = data.value.message || 'We are currently under maintenance. Please check back soon.';
+        console.log('Maintenance mode status:', { isEnabled, message });
+        setMaintenanceMode(isEnabled);
+        setMaintenanceMessage(message);
+      } else {
+        console.log('No maintenance mode config found, defaulting to off');
+        setMaintenanceMode(false);
       }
     } catch (error) {
       console.error('Error checking maintenance mode:', error);
+      setMaintenanceMode(false);
     }
   };
 
