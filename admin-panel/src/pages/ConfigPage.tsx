@@ -94,13 +94,15 @@ export const ConfigPage = () => {
       
       const errors = results.filter(r => r.error)
       if (errors.length > 0) {
-        console.error('Save errors:', errors)
+        console.error('❌ Save errors:', errors)
         const errorMessages = errors.map(e => e.error?.message || 'Unknown error').join(', ')
         alert('Error saving: ' + errorMessages)
       } else {
         console.log('✅ All configs saved successfully!')
-        alert('Settings saved successfully!')
+        console.log('Refreshing configs...')
+        alert('✅ Settings saved successfully!')
         await fetchConfigs() // Refresh to show saved data
+        console.log('✅ Configs refreshed!')
       }
     } catch (error) {
       console.error('Error saving configs:', error)
