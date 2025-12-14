@@ -141,7 +141,6 @@ const GoldMeetPage = () => {
           </button>
           <div className="text-center">
             <h1 className="text-xl font-bold text-gray-800">Gold Meet</h1>
-            <p className="text-sm text-gray-500">Watch live sessions and recordings</p>
           </div>
           <ReportButton section="Gold Meet" variant="icon" />
         </div>
@@ -206,7 +205,7 @@ const GoldMeetPage = () => {
                 <div className="flex items-center gap-2 text-xs text-gray-500">
                   <CalendarClock className="w-4 h-4" />
                   <span>{primaryVideo.date}</span>
-                  <span>â€¢</span>
+                  <span>•</span>
                   <span>{primaryVideo.duration}</span>
                 </div>
                 <h2 className="text-lg font-semibold text-gray-900">{primaryVideo.title}</h2>
@@ -248,9 +247,9 @@ const GoldMeetPage = () => {
                       <p className="text-xs text-gray-600">{video.speaker}</p>
                       <div className="flex items-center gap-2 text-[11px] text-gray-500">
                         <span>{video.date}</span>
-                        <span>â€¢</span>
+                        <span>•</span>
                         <span>{video.duration}</span>
-                        <span>â€¢</span>
+                        <span>•</span>
                         <span className="capitalize">{video.category}</span>
                       </div>
                     </div>
