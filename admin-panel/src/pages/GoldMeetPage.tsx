@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase'
-import { Plus, Trash2, Edit2, Video, Play, Radio, GripVertical, X } from 'lucide-react'
+import { Plus, Trash2, Edit2, Video, Play, Radio, GripVertical } from 'lucide-react'
 
 interface GoldMeetSession {
   id: string
@@ -82,7 +82,7 @@ export const GoldMeetPage = () => {
     const embedUrl = videoId ? `https://www.youtube.com/embed/${videoId}` : formData.youtube_url
     const thumbnail = videoId ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg` : null
 
-    const sessionData = {
+    const sessionData: any = {
       title: formData.title,
       speaker: formData.speaker,
       session_date: formData.session_date,
@@ -91,7 +91,8 @@ export const GoldMeetPage = () => {
       thumbnail_url: thumbnail,
       is_live: formData.is_live,
       is_active: formData.is_active,
-      display_order: editingSession ? editingSession.display_order : sessions.length
+      display_order: editingSession ? editingSession.display_order : sessions.length,
+      category: '' // Empty string for category field (required by database schema)
     }
 
     if (editingSession) {
