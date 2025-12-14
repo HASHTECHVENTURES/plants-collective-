@@ -164,10 +164,21 @@ class RealtimeSyncService {
           table: 'app_config'
         },
         (payload) => {
+          console.log('App config real-time event:', payload);
           callback(payload);
         }
       )
-      .subscribe();
+      .subscribe((status, err) => {
+        console.log('App config subscription status:', status);
+        if (err) {
+          console.error('App config subscription error:', err);
+        }
+        if (status === 'SUBSCRIBED') {
+          console.log('✅ Successfully subscribed to app_config changes');
+        } else if (status === 'CHANNEL_ERROR') {
+          console.error('❌ Failed to subscribe to app_config. Check if Realtime is enabled for this table.');
+        }
+      });
 
     this.channels.set(channelName, channel);
 
@@ -261,3 +272,5 @@ class RealtimeSyncService {
 }
 
 export const realtimeSyncService = new RealtimeSyncService();
+
+
