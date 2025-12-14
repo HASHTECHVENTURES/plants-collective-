@@ -185,3 +185,5 @@ The admin panel has been fully optimized from top to bottom for better performan
 ---
 
 **Note**: This optimization does NOT affect the main app APK. The admin panel is a separate web application.
+
+

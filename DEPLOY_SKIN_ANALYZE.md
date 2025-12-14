@@ -106,3 +106,5 @@ The new function:
 - Provides detailed analysis (10 parameters)
 - Gives personalized skincare routines
 - Considers user age, location, and lifestyle
+
+

@@ -65,3 +65,5 @@ After deployment:
 4. You should see real AI analysis (not random data)
 
 If you see errors, check the function logs in Supabase Dashboard.
+
+

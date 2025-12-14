@@ -184,3 +184,5 @@ Currently, the code falls back to base64 encoding when storage upload fails. Thi
 - ❌ Not ideal for large images/videos
 
 After fixing RLS, images will be stored properly in Supabase Storage! 🎉
+
+

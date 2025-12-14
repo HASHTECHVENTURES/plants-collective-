@@ -91,6 +91,28 @@ export const NotificationsPage = () => {
         is_read: false
       }))
       await supabase.from('user_notifications').insert(userNotifications)
+
+      // Send push notifications to Android devices
+      try {
+        const userIds = targetUsers.map(u => u.id)
+        const { data: functionUrl } = await supabase.functions.invoke('send-push-notification', {
+          body: {
+            user_ids: targetType === 'all' ? undefined : userIds,
+            title: formData.title,
+            message: formData.message,
+            data: {
+              type: formData.type,
+              link: formData.link || '',
+              notification_id: notification.id
+            }
+          }
+        })
+        console.log('Push notifications sent:', functionUrl)
+      } catch (pushError) {
+        console.error('Error sending push notifications:', pushError)
+        // Don't fail the whole operation if push fails
+        // In-app notification was already created
+      }
     }
 
     setShowForm(false)

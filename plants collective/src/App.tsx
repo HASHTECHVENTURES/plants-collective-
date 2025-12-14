@@ -8,6 +8,7 @@ import { useState, createContext, useContext, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 import { storage } from "@/lib/config";
 import { realtimeSyncService } from "@/services/realtimeSyncService";
+import { pushNotificationService } from "@/services/pushNotificationService";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import type { User, LoginResult, AuthContextType } from "@/types";
 import { App as CapacitorApp } from '@capacitor/app';
@@ -101,6 +102,11 @@ const App = () => {
         try {
           const userData = JSON.parse(storedUser);
           setUser(userData);
+          
+          // Initialize push notifications for logged-in user
+          if (userData?.id) {
+            await pushNotificationService.initialize(userData.id);
+          }
         } catch (error) {
           // Invalid JSON, clear it
           storage.remove('plants-collective-user');

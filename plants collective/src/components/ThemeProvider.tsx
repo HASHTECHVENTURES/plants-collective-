@@ -17,3 +17,5 @@ export const ThemeProvider = ({ children }: Props) => {
     </NextThemesProvider>
   );
 };
+
+

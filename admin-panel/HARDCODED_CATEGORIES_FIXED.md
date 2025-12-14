@@ -79,3 +79,5 @@ const defaultTags: BlogTag[] = [
 ---
 
 **The Gold Meet categories are now 100% dynamic from the database!** 🎉
+
+

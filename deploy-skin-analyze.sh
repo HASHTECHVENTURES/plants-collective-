@@ -68,3 +68,5 @@ echo "1. Test the function in Supabase Dashboard"
 echo "2. Try the skin analysis in your app"
 echo "3. Check function logs if you encounter any issues"
 echo ""
+
+

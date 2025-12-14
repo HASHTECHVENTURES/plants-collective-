@@ -91,3 +91,5 @@ supabase functions deploy skin-analyze
 4. **Share the error message** from logs if it still doesn't work
 
 The improved error handling will now show you exactly what's wrong!
+
+

@@ -46,3 +46,5 @@ export const openExternalLink = async (url: string, options?: { target?: string 
   // On web, use window.open
   window.open(absoluteUrl, options?.target || '_blank', 'noopener,noreferrer');
 };
+
+
