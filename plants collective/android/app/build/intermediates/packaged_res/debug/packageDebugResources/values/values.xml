@@ -3,7 +3,13 @@
     <color name="ic_launcher_background">#FFFFFF</color>
     <string name="app_name">Plants Collective v4</string>
     <string name="custom_url_scheme">com.plantscollective.app</string>
+    <string name="gcm_defaultSenderId" translatable="false">459564742240</string>
+    <string name="google_api_key" translatable="false">AIzaSyDQbWiHP2Rt9WkOs4DnDf6SLBcXZA1NbFI</string>
+    <string name="google_app_id" translatable="false">1:459564742240:android:5cfd701e8797563e937505</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyDQbWiHP2Rt9WkOs4DnDf6SLBcXZA1NbFI</string>
+    <string name="google_storage_bucket" translatable="false">collectiveplants-78ad9.firebasestorage.app</string>
     <string name="package_name">com.plantscollective.app</string>
+    <string name="project_id" translatable="false">collectiveplants-78ad9</string>
     <string name="title_activity_main">Plants Collective v4</string>
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         

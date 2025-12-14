@@ -95,7 +95,13 @@ export const NotificationsPage = () => {
       // Send push notifications to Android devices
       try {
         const userIds = targetUsers.map(u => u.id)
-        const { data: functionUrl } = await supabase.functions.invoke('send-push-notification', {
+        console.log('Sending push notification to Edge Function...', {
+          user_ids: targetType === 'all' ? 'all' : userIds,
+          title: formData.title,
+          message: formData.message
+        })
+        
+        const { data, error: functionError } = await supabase.functions.invoke('send-push-notification', {
           body: {
             user_ids: targetType === 'all' ? undefined : userIds,
             title: formData.title,
@@ -107,9 +113,21 @@ export const NotificationsPage = () => {
             }
           }
         })
-        console.log('Push notifications sent:', functionUrl)
+        
+        if (functionError) {
+          console.error('Edge Function error:', functionError)
+          alert(`Push notification error: ${functionError.message || 'Unknown error'}`)
+        } else {
+          console.log('Push notifications sent successfully:', data)
+          if (data?.sent === 0) {
+            alert('⚠️ No device tokens found. Make sure users have logged in on their Android phones.')
+          } else if (data?.sent) {
+            alert(`✅ Push notification sent to ${data.sent} device(s)!`)
+          }
+        }
       } catch (pushError) {
         console.error('Error sending push notifications:', pushError)
+        alert(`Failed to send push notification: ${pushError instanceof Error ? pushError.message : 'Unknown error'}`)
         // Don't fail the whole operation if push fails
         // In-app notification was already created
       }

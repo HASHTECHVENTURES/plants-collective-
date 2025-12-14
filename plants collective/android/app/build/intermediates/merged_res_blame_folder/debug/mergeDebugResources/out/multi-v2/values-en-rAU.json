@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.plantscollective.app-mergeDebugResources-37:/values-en-rAU/values-en-rAU.xml",
+            "outputFile": "com.plantscollective.app-mergeDebugResources-42:/values-en-rAU/values-en-rAU.xml",
             "map": [
                 {
                     "source": "/Users/sujalpatel/.gradle/caches/8.11.1/transforms/ce7a7439fda0c36e77102a7d38ff3226/transformed/browser-1.8.0/res/values-en-rAU/values-en-rAU.xml",

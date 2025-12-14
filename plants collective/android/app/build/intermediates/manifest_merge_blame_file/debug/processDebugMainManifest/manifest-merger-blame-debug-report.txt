@@ -11,173 +11,359 @@
 11    <!-- Permissions -->
 12
 13    <uses-permission android:name="android.permission.INTERNET" />
-13-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:40:5-67
-13-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:40:22-64
-14
-15    <queries>
-15-->[:capacitor-browser] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/browser/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:7:5-11:15
-16        <intent>
-16-->[:capacitor-browser] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/browser/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:8:9-10:18
-17            <action android:name="android.support.customtabs.action.CustomTabsService" />
-17-->[:capacitor-browser] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/browser/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:9:13-90
-17-->[:capacitor-browser] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/browser/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:9:21-87
-18        </intent>
+13-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:49:5-67
+13-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:49:22-64
+14    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+14-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:50:5-77
+14-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:50:22-74
+15    <uses-permission android:name="android.permission.WAKE_LOCK" />
+15-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:51:5-68
+15-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:51:22-65
+16    <uses-permission android:name="android.permission.VIBRATE" />
+16-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:52:5-66
+16-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:52:22-63
+17
+18    <queries>
+18-->[:capacitor-browser] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/browser/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:7:5-11:15
 19        <intent>
-19-->[:capacitor-camera] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/camera/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:8:9-10:18
-20            <action android:name="android.media.action.IMAGE_CAPTURE" />
-20-->[:capacitor-camera] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/camera/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:9:13-73
-20-->[:capacitor-camera] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/camera/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:9:21-70
+19-->[:capacitor-browser] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/browser/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:8:9-10:18
+20            <action android:name="android.support.customtabs.action.CustomTabsService" />
+20-->[:capacitor-browser] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/browser/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:9:13-90
+20-->[:capacitor-browser] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/browser/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:9:21-87
 21        </intent>
-22    </queries>
-23
-24    <permission
-24-->[androidx.core:core:1.15.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/5f51ed623ec66baebfa6a053fe8a8b2a/transformed/core-1.15.0/AndroidManifest.xml:22:5-24:47
-25        android:name="com.plantscollective.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
-25-->[androidx.core:core:1.15.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/5f51ed623ec66baebfa6a053fe8a8b2a/transformed/core-1.15.0/AndroidManifest.xml:23:9-81
-26        android:protectionLevel="signature" />
-26-->[androidx.core:core:1.15.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/5f51ed623ec66baebfa6a053fe8a8b2a/transformed/core-1.15.0/AndroidManifest.xml:24:9-44
-27
-28    <uses-permission android:name="com.plantscollective.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
-28-->[androidx.core:core:1.15.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/5f51ed623ec66baebfa6a053fe8a8b2a/transformed/core-1.15.0/AndroidManifest.xml:26:5-97
-28-->[androidx.core:core:1.15.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/5f51ed623ec66baebfa6a053fe8a8b2a/transformed/core-1.15.0/AndroidManifest.xml:26:22-94
+22        <intent>
+22-->[:capacitor-camera] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/camera/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:8:9-10:18
+23            <action android:name="android.media.action.IMAGE_CAPTURE" />
+23-->[:capacitor-camera] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/camera/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:9:13-73
+23-->[:capacitor-camera] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/camera/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:9:21-70
+24        </intent>
+25    </queries>
+26
+27    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- Required by older versions of Google Play services to create IID tokens -->
+27-->[com.google.firebase:firebase-messaging:24.1.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/2c04d43294058e70b8ad79d5184e7401/transformed/firebase-messaging-24.1.0/AndroidManifest.xml:22:5-79
+27-->[com.google.firebase:firebase-messaging:24.1.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/2c04d43294058e70b8ad79d5184e7401/transformed/firebase-messaging-24.1.0/AndroidManifest.xml:22:22-76
+28    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+28-->[com.google.firebase:firebase-messaging:24.1.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/2c04d43294058e70b8ad79d5184e7401/transformed/firebase-messaging-24.1.0/AndroidManifest.xml:26:5-82
+28-->[com.google.firebase:firebase-messaging:24.1.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/2c04d43294058e70b8ad79d5184e7401/transformed/firebase-messaging-24.1.0/AndroidManifest.xml:26:22-79
 29
-30    <application
-30-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:4:5-36:19
-31        android:allowBackup="true"
-31-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:5:9-35
-32        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-32-->[androidx.core:core:1.15.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/5f51ed623ec66baebfa6a053fe8a8b2a/transformed/core-1.15.0/AndroidManifest.xml:28:18-86
-33        android:debuggable="true"
-34        android:extractNativeLibs="false"
-35        android:icon="@mipmap/ic_launcher"
-35-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:6:9-43
-36        android:label="@string/app_name"
-36-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:7:9-41
-37        android:roundIcon="@mipmap/ic_launcher_round"
-37-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:8:9-54
-38        android:supportsRtl="true"
-38-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:9:9-35
-39        android:theme="@style/AppTheme" >
-39-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:10:9-40
-40        <activity
-40-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:12:9-25:20
-41            android:name="com.plantscollective.app.MainActivity"
-41-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:14:13-41
-42            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|smallestScreenSize|screenLayout|uiMode|navigation"
-42-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:13:13-140
-43            android:exported="true"
-43-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:18:13-36
-44            android:label="@string/title_activity_main"
-44-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:15:13-56
-45            android:launchMode="singleTask"
-45-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:17:13-44
-46            android:theme="@style/AppTheme.NoActionBarLaunch" >
-46-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:16:13-62
-47            <intent-filter>
-47-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:20:13-23:29
-48                <action android:name="android.intent.action.MAIN" />
-48-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:21:17-69
-48-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:21:25-66
-49
-50                <category android:name="android.intent.category.LAUNCHER" />
-50-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:22:17-77
-50-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:22:27-74
-51            </intent-filter>
-52        </activity>
-53
-54        <provider
-55            android:name="androidx.core.content.FileProvider"
-55-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:28:13-62
-56            android:authorities="com.plantscollective.app.fileprovider"
-56-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:29:13-64
-57            android:exported="false"
-57-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:30:13-37
-58            android:grantUriPermissions="true" >
-58-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:31:13-47
-59            <meta-data
-59-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:32:13-34:64
-60                android:name="android.support.FILE_PROVIDER_PATHS"
-60-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:33:17-67
-61                android:resource="@xml/file_paths" />
-61-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:34:17-51
-62        </provider>
-63
-64        <activity
-64-->[:capacitor-browser] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/browser/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:14:9-18:75
-65            android:name="com.capacitorjs.plugins.browser.BrowserControllerActivity"
-65-->[:capacitor-browser] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/browser/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:15:13-85
-66            android:exported="false"
-66-->[:capacitor-browser] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/browser/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:16:13-37
-67            android:launchMode="singleTask"
-67-->[:capacitor-browser] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/browser/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:17:13-44
-68            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-68-->[:capacitor-browser] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/browser/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:18:13-72
+30    <permission
+30-->[androidx.core:core:1.15.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/5f51ed623ec66baebfa6a053fe8a8b2a/transformed/core-1.15.0/AndroidManifest.xml:22:5-24:47
+31        android:name="com.plantscollective.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+31-->[androidx.core:core:1.15.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/5f51ed623ec66baebfa6a053fe8a8b2a/transformed/core-1.15.0/AndroidManifest.xml:23:9-81
+32        android:protectionLevel="signature" />
+32-->[androidx.core:core:1.15.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/5f51ed623ec66baebfa6a053fe8a8b2a/transformed/core-1.15.0/AndroidManifest.xml:24:9-44
+33
+34    <uses-permission android:name="com.plantscollective.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+34-->[androidx.core:core:1.15.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/5f51ed623ec66baebfa6a053fe8a8b2a/transformed/core-1.15.0/AndroidManifest.xml:26:5-97
+34-->[androidx.core:core:1.15.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/5f51ed623ec66baebfa6a053fe8a8b2a/transformed/core-1.15.0/AndroidManifest.xml:26:22-94
+35
+36    <application
+36-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:4:5-45:19
+37        android:allowBackup="true"
+37-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:5:9-35
+38        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+38-->[androidx.core:core:1.15.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/5f51ed623ec66baebfa6a053fe8a8b2a/transformed/core-1.15.0/AndroidManifest.xml:28:18-86
+39        android:debuggable="true"
+40        android:extractNativeLibs="false"
+41        android:icon="@mipmap/ic_launcher"
+41-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:6:9-43
+42        android:label="@string/app_name"
+42-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:7:9-41
+43        android:roundIcon="@mipmap/ic_launcher_round"
+43-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:8:9-54
+44        android:supportsRtl="true"
+44-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:9:9-35
+45        android:theme="@style/AppTheme" >
+45-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:10:9-40
+46        <activity
+46-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:12:9-25:20
+47            android:name="com.plantscollective.app.MainActivity"
+47-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:14:13-41
+48            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|smallestScreenSize|screenLayout|uiMode|navigation"
+48-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:13:13-140
+49            android:exported="true"
+49-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:18:13-36
+50            android:label="@string/title_activity_main"
+50-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:15:13-56
+51            android:launchMode="singleTask"
+51-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:17:13-44
+52            android:theme="@style/AppTheme.NoActionBarLaunch" >
+52-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:16:13-62
+53            <intent-filter>
+53-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:20:13-23:29
+54                <action android:name="android.intent.action.MAIN" />
+54-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:21:17-69
+54-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:21:25-66
+55
+56                <category android:name="android.intent.category.LAUNCHER" />
+56-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:22:17-77
+56-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:22:27-74
+57            </intent-filter>
+58        </activity>
+59
+60        <provider
+61            android:name="androidx.core.content.FileProvider"
+61-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:28:13-62
+62            android:authorities="com.plantscollective.app.fileprovider"
+62-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:29:13-64
+63            android:exported="false"
+63-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:30:13-37
+64            android:grantUriPermissions="true" >
+64-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:31:13-47
+65            <meta-data
+65-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:32:13-34:64
+66                android:name="android.support.FILE_PROVIDER_PATHS"
+66-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:33:17-67
+67                android:resource="@xml/file_paths" />
+67-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:34:17-51
+68        </provider>
 69
-70        <provider
-70-->[androidx.emoji2:emoji2:1.3.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/455628e39230ce08b70f281b4ac99c3c/transformed/emoji2-1.3.0/AndroidManifest.xml:24:9-32:20
-71            android:name="androidx.startup.InitializationProvider"
-71-->[androidx.emoji2:emoji2:1.3.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/455628e39230ce08b70f281b4ac99c3c/transformed/emoji2-1.3.0/AndroidManifest.xml:25:13-67
-72            android:authorities="com.plantscollective.app.androidx-startup"
-72-->[androidx.emoji2:emoji2:1.3.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/455628e39230ce08b70f281b4ac99c3c/transformed/emoji2-1.3.0/AndroidManifest.xml:26:13-68
-73            android:exported="false" >
-73-->[androidx.emoji2:emoji2:1.3.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/455628e39230ce08b70f281b4ac99c3c/transformed/emoji2-1.3.0/AndroidManifest.xml:27:13-37
-74            <meta-data
-74-->[androidx.emoji2:emoji2:1.3.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/455628e39230ce08b70f281b4ac99c3c/transformed/emoji2-1.3.0/AndroidManifest.xml:29:13-31:52
-75                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-75-->[androidx.emoji2:emoji2:1.3.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/455628e39230ce08b70f281b4ac99c3c/transformed/emoji2-1.3.0/AndroidManifest.xml:30:17-75
-76                android:value="androidx.startup" />
-76-->[androidx.emoji2:emoji2:1.3.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/455628e39230ce08b70f281b4ac99c3c/transformed/emoji2-1.3.0/AndroidManifest.xml:31:17-49
-77            <meta-data
-77-->[androidx.lifecycle:lifecycle-process:2.6.2] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/2086035d7e747a32c2be40e6ed7f404e/transformed/lifecycle-process-2.6.2/AndroidManifest.xml:29:13-31:52
-78                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-78-->[androidx.lifecycle:lifecycle-process:2.6.2] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/2086035d7e747a32c2be40e6ed7f404e/transformed/lifecycle-process-2.6.2/AndroidManifest.xml:30:17-78
-79                android:value="androidx.startup" />
-79-->[androidx.lifecycle:lifecycle-process:2.6.2] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/2086035d7e747a32c2be40e6ed7f404e/transformed/lifecycle-process-2.6.2/AndroidManifest.xml:31:17-49
-80            <meta-data
-80-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/0f3d68271fd414f74f11a6a9c308b287/transformed/profileinstaller-1.3.1/AndroidManifest.xml:29:13-31:52
-81                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
-81-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/0f3d68271fd414f74f11a6a9c308b287/transformed/profileinstaller-1.3.1/AndroidManifest.xml:30:17-85
-82                android:value="androidx.startup" />
-82-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/0f3d68271fd414f74f11a6a9c308b287/transformed/profileinstaller-1.3.1/AndroidManifest.xml:31:17-49
-83        </provider>
-84
-85        <receiver
-85-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/0f3d68271fd414f74f11a6a9c308b287/transformed/profileinstaller-1.3.1/AndroidManifest.xml:34:9-52:20
-86            android:name="androidx.profileinstaller.ProfileInstallReceiver"
-86-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/0f3d68271fd414f74f11a6a9c308b287/transformed/profileinstaller-1.3.1/AndroidManifest.xml:35:13-76
-87            android:directBootAware="false"
-87-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/0f3d68271fd414f74f11a6a9c308b287/transformed/profileinstaller-1.3.1/AndroidManifest.xml:36:13-44
-88            android:enabled="true"
-88-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/0f3d68271fd414f74f11a6a9c308b287/transformed/profileinstaller-1.3.1/AndroidManifest.xml:37:13-35
-89            android:exported="true"
-89-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/0f3d68271fd414f74f11a6a9c308b287/transformed/profileinstaller-1.3.1/AndroidManifest.xml:38:13-36
-90            android:permission="android.permission.DUMP" >
-90-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/0f3d68271fd414f74f11a6a9c308b287/transformed/profileinstaller-1.3.1/AndroidManifest.xml:39:13-57
-91            <intent-filter>
-91-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/0f3d68271fd414f74f11a6a9c308b287/transformed/profileinstaller-1.3.1/AndroidManifest.xml:40:13-42:29
-92                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
-92-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/0f3d68271fd414f74f11a6a9c308b287/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:17-91
-92-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/0f3d68271fd414f74f11a6a9c308b287/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:25-88
-93            </intent-filter>
-94            <intent-filter>
-94-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/0f3d68271fd414f74f11a6a9c308b287/transformed/profileinstaller-1.3.1/AndroidManifest.xml:43:13-45:29
-95                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
-95-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/0f3d68271fd414f74f11a6a9c308b287/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:17-85
-95-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/0f3d68271fd414f74f11a6a9c308b287/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:25-82
-96            </intent-filter>
-97            <intent-filter>
-97-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/0f3d68271fd414f74f11a6a9c308b287/transformed/profileinstaller-1.3.1/AndroidManifest.xml:46:13-48:29
-98                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
-98-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/0f3d68271fd414f74f11a6a9c308b287/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:17-88
-98-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/0f3d68271fd414f74f11a6a9c308b287/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:25-85
-99            </intent-filter>
-100            <intent-filter>
-100-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/0f3d68271fd414f74f11a6a9c308b287/transformed/profileinstaller-1.3.1/AndroidManifest.xml:49:13-51:29
-101                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
-101-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/0f3d68271fd414f74f11a6a9c308b287/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:17-95
-101-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/0f3d68271fd414f74f11a6a9c308b287/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:25-92
-102            </intent-filter>
-103        </receiver>
-104    </application>
-105
-106</manifest>
+70        <!-- Firebase Cloud Messaging -->
+71        <service
+71-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:38:9-44:19
+72            android:name="com.google.firebase.messaging.FirebaseMessagingService"
+72-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:39:13-82
+73            android:directBootAware="true"
+73-->[com.google.firebase:firebase-messaging:24.1.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/2c04d43294058e70b8ad79d5184e7401/transformed/firebase-messaging-24.1.0/AndroidManifest.xml:48:13-43
+74            android:exported="false" >
+74-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:40:13-37
+75            <intent-filter>
+75-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:41:13-43:29
+76                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+76-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:42:17-78
+76-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:42:25-75
+77            </intent-filter>
+78            <intent-filter android:priority="-500" >
+78-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:41:13-43:29
+79                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+79-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:42:17-78
+79-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:42:25-75
+80            </intent-filter>
+81        </service>
+82
+83        <activity
+83-->[:capacitor-browser] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/browser/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:14:9-18:75
+84            android:name="com.capacitorjs.plugins.browser.BrowserControllerActivity"
+84-->[:capacitor-browser] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/browser/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:15:13-85
+85            android:exported="false"
+85-->[:capacitor-browser] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/browser/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:16:13-37
+86            android:launchMode="singleTask"
+86-->[:capacitor-browser] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/browser/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:17:13-44
+87            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+87-->[:capacitor-browser] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/browser/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:18:13-72
+88
+89        <service
+89-->[:capacitor-push-notifications] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/push-notifications/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:8:9-14:19
+90            android:name="com.capacitorjs.plugins.pushnotifications.MessagingService"
+90-->[:capacitor-push-notifications] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/push-notifications/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:9:13-86
+91            android:exported="false" >
+91-->[:capacitor-push-notifications] /Users/sujalpatel/Documents/Plants Collective/plants collective/node_modules/@capacitor/push-notifications/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:10:13-37
+92            <intent-filter>
+92-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:41:13-43:29
+93                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+93-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:42:17-78
+93-->/Users/sujalpatel/Documents/Plants Collective/plants collective/android/app/src/main/AndroidManifest.xml:42:25-75
+94            </intent-filter>
+95        </service>
+96
+97        <receiver
+97-->[com.google.firebase:firebase-messaging:24.1.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/2c04d43294058e70b8ad79d5184e7401/transformed/firebase-messaging-24.1.0/AndroidManifest.xml:29:9-40:20
+98            android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
+98-->[com.google.firebase:firebase-messaging:24.1.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/2c04d43294058e70b8ad79d5184e7401/transformed/firebase-messaging-24.1.0/AndroidManifest.xml:30:13-78
+99            android:exported="true"
+99-->[com.google.firebase:firebase-messaging:24.1.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/2c04d43294058e70b8ad79d5184e7401/transformed/firebase-messaging-24.1.0/AndroidManifest.xml:31:13-36
+100            android:permission="com.google.android.c2dm.permission.SEND" >
+100-->[com.google.firebase:firebase-messaging:24.1.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/2c04d43294058e70b8ad79d5184e7401/transformed/firebase-messaging-24.1.0/AndroidManifest.xml:32:13-73
+101            <intent-filter>
+101-->[com.google.firebase:firebase-messaging:24.1.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/2c04d43294058e70b8ad79d5184e7401/transformed/firebase-messaging-24.1.0/AndroidManifest.xml:33:13-35:29
+102                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+102-->[com.google.firebase:firebase-messaging:24.1.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/2c04d43294058e70b8ad79d5184e7401/transformed/firebase-messaging-24.1.0/AndroidManifest.xml:34:17-81
+102-->[com.google.firebase:firebase-messaging:24.1.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/2c04d43294058e70b8ad79d5184e7401/transformed/firebase-messaging-24.1.0/AndroidManifest.xml:34:25-78
+103            </intent-filter>
+104
+105            <meta-data
+105-->[com.google.firebase:firebase-messaging:24.1.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/2c04d43294058e70b8ad79d5184e7401/transformed/firebase-messaging-24.1.0/AndroidManifest.xml:37:13-39:40
+106                android:name="com.google.android.gms.cloudmessaging.FINISHED_AFTER_HANDLED"
+106-->[com.google.firebase:firebase-messaging:24.1.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/2c04d43294058e70b8ad79d5184e7401/transformed/firebase-messaging-24.1.0/AndroidManifest.xml:38:17-92
+107                android:value="true" />
+107-->[com.google.firebase:firebase-messaging:24.1.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/2c04d43294058e70b8ad79d5184e7401/transformed/firebase-messaging-24.1.0/AndroidManifest.xml:39:17-37
+108        </receiver>
+109
+110        <service
+110-->[com.google.firebase:firebase-messaging:24.1.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/2c04d43294058e70b8ad79d5184e7401/transformed/firebase-messaging-24.1.0/AndroidManifest.xml:54:9-63:19
+111            android:name="com.google.firebase.components.ComponentDiscoveryService"
+111-->[com.google.firebase:firebase-messaging:24.1.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/2c04d43294058e70b8ad79d5184e7401/transformed/firebase-messaging-24.1.0/AndroidManifest.xml:55:13-84
+112            android:directBootAware="true"
+112-->[com.google.firebase:firebase-common:21.0.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/f546ee03c2308c684eeebc8faf0e1407/transformed/firebase-common-21.0.0/AndroidManifest.xml:32:13-43
+113            android:exported="false" >
+113-->[com.google.firebase:firebase-messaging:24.1.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/2c04d43294058e70b8ad79d5184e7401/transformed/firebase-messaging-24.1.0/AndroidManifest.xml:56:13-37
+114            <meta-data
+114-->[com.google.firebase:firebase-messaging:24.1.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/2c04d43294058e70b8ad79d5184e7401/transformed/firebase-messaging-24.1.0/AndroidManifest.xml:57:13-59:85
+115                android:name="com.google.firebase.components:com.google.firebase.messaging.FirebaseMessagingKtxRegistrar"
+115-->[com.google.firebase:firebase-messaging:24.1.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/2c04d43294058e70b8ad79d5184e7401/transformed/firebase-messaging-24.1.0/AndroidManifest.xml:58:17-122
+116                android:value="com.google.firebase.components.ComponentRegistrar" />
+116-->[com.google.firebase:firebase-messaging:24.1.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/2c04d43294058e70b8ad79d5184e7401/transformed/firebase-messaging-24.1.0/AndroidManifest.xml:59:17-82
+117            <meta-data
+117-->[com.google.firebase:firebase-messaging:24.1.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/2c04d43294058e70b8ad79d5184e7401/transformed/firebase-messaging-24.1.0/AndroidManifest.xml:60:13-62:85
+118                android:name="com.google.firebase.components:com.google.firebase.messaging.FirebaseMessagingRegistrar"
+118-->[com.google.firebase:firebase-messaging:24.1.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/2c04d43294058e70b8ad79d5184e7401/transformed/firebase-messaging-24.1.0/AndroidManifest.xml:61:17-119
+119                android:value="com.google.firebase.components.ComponentRegistrar" />
+119-->[com.google.firebase:firebase-messaging:24.1.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/2c04d43294058e70b8ad79d5184e7401/transformed/firebase-messaging-24.1.0/AndroidManifest.xml:62:17-82
+120            <meta-data
+120-->[com.google.firebase:firebase-installations:17.2.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/2d121929483b8667b8bd7f522bf5e661/transformed/firebase-installations-17.2.0/AndroidManifest.xml:15:13-17:85
+121                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsKtxRegistrar"
+121-->[com.google.firebase:firebase-installations:17.2.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/2d121929483b8667b8bd7f522bf5e661/transformed/firebase-installations-17.2.0/AndroidManifest.xml:16:17-130
+122                android:value="com.google.firebase.components.ComponentRegistrar" />
+122-->[com.google.firebase:firebase-installations:17.2.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/2d121929483b8667b8bd7f522bf5e661/transformed/firebase-installations-17.2.0/AndroidManifest.xml:17:17-82
+123            <meta-data
+123-->[com.google.firebase:firebase-installations:17.2.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/2d121929483b8667b8bd7f522bf5e661/transformed/firebase-installations-17.2.0/AndroidManifest.xml:18:13-20:85
+124                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsRegistrar"
+124-->[com.google.firebase:firebase-installations:17.2.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/2d121929483b8667b8bd7f522bf5e661/transformed/firebase-installations-17.2.0/AndroidManifest.xml:19:17-127
+125                android:value="com.google.firebase.components.ComponentRegistrar" />
+125-->[com.google.firebase:firebase-installations:17.2.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/2d121929483b8667b8bd7f522bf5e661/transformed/firebase-installations-17.2.0/AndroidManifest.xml:20:17-82
+126            <meta-data
+126-->[com.google.firebase:firebase-common-ktx:21.0.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/324fc306ed84dc357040da54cc5f1fbc/transformed/firebase-common-ktx-21.0.0/AndroidManifest.xml:12:13-14:85
+127                android:name="com.google.firebase.components:com.google.firebase.ktx.FirebaseCommonLegacyRegistrar"
+127-->[com.google.firebase:firebase-common-ktx:21.0.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/324fc306ed84dc357040da54cc5f1fbc/transformed/firebase-common-ktx-21.0.0/AndroidManifest.xml:13:17-116
+128                android:value="com.google.firebase.components.ComponentRegistrar" />
+128-->[com.google.firebase:firebase-common-ktx:21.0.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/324fc306ed84dc357040da54cc5f1fbc/transformed/firebase-common-ktx-21.0.0/AndroidManifest.xml:14:17-82
+129            <meta-data
+129-->[com.google.firebase:firebase-common:21.0.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/f546ee03c2308c684eeebc8faf0e1407/transformed/firebase-common-21.0.0/AndroidManifest.xml:35:13-37:85
+130                android:name="com.google.firebase.components:com.google.firebase.FirebaseCommonKtxRegistrar"
+130-->[com.google.firebase:firebase-common:21.0.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/f546ee03c2308c684eeebc8faf0e1407/transformed/firebase-common-21.0.0/AndroidManifest.xml:36:17-109
+131                android:value="com.google.firebase.components.ComponentRegistrar" />
+131-->[com.google.firebase:firebase-common:21.0.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/f546ee03c2308c684eeebc8faf0e1407/transformed/firebase-common-21.0.0/AndroidManifest.xml:37:17-82
+132            <meta-data
+132-->[com.google.firebase:firebase-datatransport:18.2.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/d59858b3709795c3a4e2c9928bb49778/transformed/firebase-datatransport-18.2.0/AndroidManifest.xml:25:13-27:85
+133                android:name="com.google.firebase.components:com.google.firebase.datatransport.TransportRegistrar"
+133-->[com.google.firebase:firebase-datatransport:18.2.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/d59858b3709795c3a4e2c9928bb49778/transformed/firebase-datatransport-18.2.0/AndroidManifest.xml:26:17-115
+134                android:value="com.google.firebase.components.ComponentRegistrar" />
+134-->[com.google.firebase:firebase-datatransport:18.2.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/d59858b3709795c3a4e2c9928bb49778/transformed/firebase-datatransport-18.2.0/AndroidManifest.xml:27:17-82
+135        </service>
+136
+137        <activity
+137-->[com.google.android.gms:play-services-base:18.0.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/b230ccc4c3071da754e2bd5ef15689db/transformed/play-services-base-18.0.1/AndroidManifest.xml:20:9-22:45
+138            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+138-->[com.google.android.gms:play-services-base:18.0.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/b230ccc4c3071da754e2bd5ef15689db/transformed/play-services-base-18.0.1/AndroidManifest.xml:20:19-85
+139            android:exported="false"
+139-->[com.google.android.gms:play-services-base:18.0.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/b230ccc4c3071da754e2bd5ef15689db/transformed/play-services-base-18.0.1/AndroidManifest.xml:22:19-43
+140            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+140-->[com.google.android.gms:play-services-base:18.0.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/b230ccc4c3071da754e2bd5ef15689db/transformed/play-services-base-18.0.1/AndroidManifest.xml:21:19-78
+141
+142        <provider
+142-->[com.google.firebase:firebase-common:21.0.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/f546ee03c2308c684eeebc8faf0e1407/transformed/firebase-common-21.0.0/AndroidManifest.xml:23:9-28:39
+143            android:name="com.google.firebase.provider.FirebaseInitProvider"
+143-->[com.google.firebase:firebase-common:21.0.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/f546ee03c2308c684eeebc8faf0e1407/transformed/firebase-common-21.0.0/AndroidManifest.xml:24:13-77
+144            android:authorities="com.plantscollective.app.firebaseinitprovider"
+144-->[com.google.firebase:firebase-common:21.0.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/f546ee03c2308c684eeebc8faf0e1407/transformed/firebase-common-21.0.0/AndroidManifest.xml:25:13-72
+145            android:directBootAware="true"
+145-->[com.google.firebase:firebase-common:21.0.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/f546ee03c2308c684eeebc8faf0e1407/transformed/firebase-common-21.0.0/AndroidManifest.xml:26:13-43
+146            android:exported="false"
+146-->[com.google.firebase:firebase-common:21.0.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/f546ee03c2308c684eeebc8faf0e1407/transformed/firebase-common-21.0.0/AndroidManifest.xml:27:13-37
+147            android:initOrder="100" />
+147-->[com.google.firebase:firebase-common:21.0.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/f546ee03c2308c684eeebc8faf0e1407/transformed/firebase-common-21.0.0/AndroidManifest.xml:28:13-36
+148        <provider
+148-->[androidx.emoji2:emoji2:1.3.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/455628e39230ce08b70f281b4ac99c3c/transformed/emoji2-1.3.0/AndroidManifest.xml:24:9-32:20
+149            android:name="androidx.startup.InitializationProvider"
+149-->[androidx.emoji2:emoji2:1.3.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/455628e39230ce08b70f281b4ac99c3c/transformed/emoji2-1.3.0/AndroidManifest.xml:25:13-67
+150            android:authorities="com.plantscollective.app.androidx-startup"
+150-->[androidx.emoji2:emoji2:1.3.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/455628e39230ce08b70f281b4ac99c3c/transformed/emoji2-1.3.0/AndroidManifest.xml:26:13-68
+151            android:exported="false" >
+151-->[androidx.emoji2:emoji2:1.3.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/455628e39230ce08b70f281b4ac99c3c/transformed/emoji2-1.3.0/AndroidManifest.xml:27:13-37
+152            <meta-data
+152-->[androidx.emoji2:emoji2:1.3.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/455628e39230ce08b70f281b4ac99c3c/transformed/emoji2-1.3.0/AndroidManifest.xml:29:13-31:52
+153                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+153-->[androidx.emoji2:emoji2:1.3.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/455628e39230ce08b70f281b4ac99c3c/transformed/emoji2-1.3.0/AndroidManifest.xml:30:17-75
+154                android:value="androidx.startup" />
+154-->[androidx.emoji2:emoji2:1.3.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/455628e39230ce08b70f281b4ac99c3c/transformed/emoji2-1.3.0/AndroidManifest.xml:31:17-49
+155            <meta-data
+155-->[androidx.lifecycle:lifecycle-process:2.6.2] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/2086035d7e747a32c2be40e6ed7f404e/transformed/lifecycle-process-2.6.2/AndroidManifest.xml:29:13-31:52
+156                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+156-->[androidx.lifecycle:lifecycle-process:2.6.2] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/2086035d7e747a32c2be40e6ed7f404e/transformed/lifecycle-process-2.6.2/AndroidManifest.xml:30:17-78
+157                android:value="androidx.startup" />
+157-->[androidx.lifecycle:lifecycle-process:2.6.2] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/2086035d7e747a32c2be40e6ed7f404e/transformed/lifecycle-process-2.6.2/AndroidManifest.xml:31:17-49
+158            <meta-data
+158-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/0f3d68271fd414f74f11a6a9c308b287/transformed/profileinstaller-1.3.1/AndroidManifest.xml:29:13-31:52
+159                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+159-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/0f3d68271fd414f74f11a6a9c308b287/transformed/profileinstaller-1.3.1/AndroidManifest.xml:30:17-85
+160                android:value="androidx.startup" />
+160-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/0f3d68271fd414f74f11a6a9c308b287/transformed/profileinstaller-1.3.1/AndroidManifest.xml:31:17-49
+161        </provider>
+162
+163        <meta-data
+163-->[com.google.android.gms:play-services-basement:18.3.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/bf10fd02607fac4185e6132b9261c407/transformed/play-services-basement-18.3.0/AndroidManifest.xml:21:9-23:69
+164            android:name="com.google.android.gms.version"
+164-->[com.google.android.gms:play-services-basement:18.3.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/bf10fd02607fac4185e6132b9261c407/transformed/play-services-basement-18.3.0/AndroidManifest.xml:22:13-58
+165            android:value="@integer/google_play_services_version" />
+165-->[com.google.android.gms:play-services-basement:18.3.0] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/bf10fd02607fac4185e6132b9261c407/transformed/play-services-basement-18.3.0/AndroidManifest.xml:23:13-66
+166
+167        <receiver
+167-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/0f3d68271fd414f74f11a6a9c308b287/transformed/profileinstaller-1.3.1/AndroidManifest.xml:34:9-52:20
+168            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+168-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/0f3d68271fd414f74f11a6a9c308b287/transformed/profileinstaller-1.3.1/AndroidManifest.xml:35:13-76
+169            android:directBootAware="false"
+169-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/0f3d68271fd414f74f11a6a9c308b287/transformed/profileinstaller-1.3.1/AndroidManifest.xml:36:13-44
+170            android:enabled="true"
+170-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/0f3d68271fd414f74f11a6a9c308b287/transformed/profileinstaller-1.3.1/AndroidManifest.xml:37:13-35
+171            android:exported="true"
+171-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/0f3d68271fd414f74f11a6a9c308b287/transformed/profileinstaller-1.3.1/AndroidManifest.xml:38:13-36
+172            android:permission="android.permission.DUMP" >
+172-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/0f3d68271fd414f74f11a6a9c308b287/transformed/profileinstaller-1.3.1/AndroidManifest.xml:39:13-57
+173            <intent-filter>
+173-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/0f3d68271fd414f74f11a6a9c308b287/transformed/profileinstaller-1.3.1/AndroidManifest.xml:40:13-42:29
+174                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+174-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/0f3d68271fd414f74f11a6a9c308b287/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:17-91
+174-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/0f3d68271fd414f74f11a6a9c308b287/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:25-88
+175            </intent-filter>
+176            <intent-filter>
+176-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/0f3d68271fd414f74f11a6a9c308b287/transformed/profileinstaller-1.3.1/AndroidManifest.xml:43:13-45:29
+177                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+177-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/0f3d68271fd414f74f11a6a9c308b287/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:17-85
+177-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/0f3d68271fd414f74f11a6a9c308b287/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:25-82
+178            </intent-filter>
+179            <intent-filter>
+179-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/0f3d68271fd414f74f11a6a9c308b287/transformed/profileinstaller-1.3.1/AndroidManifest.xml:46:13-48:29
+180                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+180-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/0f3d68271fd414f74f11a6a9c308b287/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:17-88
+180-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/0f3d68271fd414f74f11a6a9c308b287/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:25-85
+181            </intent-filter>
+182            <intent-filter>
+182-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/0f3d68271fd414f74f11a6a9c308b287/transformed/profileinstaller-1.3.1/AndroidManifest.xml:49:13-51:29
+183                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+183-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/0f3d68271fd414f74f11a6a9c308b287/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:17-95
+183-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/0f3d68271fd414f74f11a6a9c308b287/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:25-92
+184            </intent-filter>
+185        </receiver>
+186
+187        <service
+187-->[com.google.android.datatransport:transport-backend-cct:3.1.9] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/c53ce620ea6072f75d375d7efaf4f97b/transformed/transport-backend-cct-3.1.9/AndroidManifest.xml:28:9-34:19
+188            android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
+188-->[com.google.android.datatransport:transport-backend-cct:3.1.9] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/c53ce620ea6072f75d375d7efaf4f97b/transformed/transport-backend-cct-3.1.9/AndroidManifest.xml:29:13-103
+189            android:exported="false" >
+189-->[com.google.android.datatransport:transport-backend-cct:3.1.9] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/c53ce620ea6072f75d375d7efaf4f97b/transformed/transport-backend-cct-3.1.9/AndroidManifest.xml:30:13-37
+190            <meta-data
+190-->[com.google.android.datatransport:transport-backend-cct:3.1.9] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/c53ce620ea6072f75d375d7efaf4f97b/transformed/transport-backend-cct-3.1.9/AndroidManifest.xml:31:13-33:39
+191                android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
+191-->[com.google.android.datatransport:transport-backend-cct:3.1.9] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/c53ce620ea6072f75d375d7efaf4f97b/transformed/transport-backend-cct-3.1.9/AndroidManifest.xml:32:17-94
+192                android:value="cct" />
+192-->[com.google.android.datatransport:transport-backend-cct:3.1.9] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/c53ce620ea6072f75d375d7efaf4f97b/transformed/transport-backend-cct-3.1.9/AndroidManifest.xml:33:17-36
+193        </service>
+194        <service
+194-->[com.google.android.datatransport:transport-runtime:3.1.9] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/e166bb1d6f54168e00acc5493c1d998b/transformed/transport-runtime-3.1.9/AndroidManifest.xml:26:9-30:19
+195            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+195-->[com.google.android.datatransport:transport-runtime:3.1.9] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/e166bb1d6f54168e00acc5493c1d998b/transformed/transport-runtime-3.1.9/AndroidManifest.xml:27:13-117
+196            android:exported="false"
+196-->[com.google.android.datatransport:transport-runtime:3.1.9] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/e166bb1d6f54168e00acc5493c1d998b/transformed/transport-runtime-3.1.9/AndroidManifest.xml:28:13-37
+197            android:permission="android.permission.BIND_JOB_SERVICE" >
+197-->[com.google.android.datatransport:transport-runtime:3.1.9] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/e166bb1d6f54168e00acc5493c1d998b/transformed/transport-runtime-3.1.9/AndroidManifest.xml:29:13-69
+198        </service>
+199
+200        <receiver
+200-->[com.google.android.datatransport:transport-runtime:3.1.9] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/e166bb1d6f54168e00acc5493c1d998b/transformed/transport-runtime-3.1.9/AndroidManifest.xml:32:9-34:40
+201            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
+201-->[com.google.android.datatransport:transport-runtime:3.1.9] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/e166bb1d6f54168e00acc5493c1d998b/transformed/transport-runtime-3.1.9/AndroidManifest.xml:33:13-132
+202            android:exported="false" />
+202-->[com.google.android.datatransport:transport-runtime:3.1.9] /Users/sujalpatel/.gradle/caches/8.11.1/transforms/e166bb1d6f54168e00acc5493c1d998b/transformed/transport-runtime-3.1.9/AndroidManifest.xml:34:13-37
+203    </application>
+204
+205</manifest>

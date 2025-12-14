@@ -159,9 +159,10 @@ serve(async (req) => {
       .select("user_id, device_token, platform");
 
     // Filter by user IDs if provided
-    if (user_ids && user_ids.length > 0) {
+    if (user_ids && Array.isArray(user_ids) && user_ids.length > 0) {
       query = query.in("user_id", user_ids);
     }
+    // If user_ids is undefined or empty, get all Android tokens (for "all users")
 
     // Only get Android tokens
     query = query.eq("platform", "android");
