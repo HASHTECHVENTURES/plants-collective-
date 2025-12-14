@@ -15,6 +15,7 @@ export const ConfigPage = () => {
   const [contactWhatsapp, setContactWhatsapp] = useState('')
 
   useEffect(() => {
+    console.log('ConfigPage mounted')
     fetchConfigs()
   }, [])
 
@@ -53,6 +54,7 @@ export const ConfigPage = () => {
   }
 
   const saveConfigs = async () => {
+    console.log('=== saveConfigs function called ===')
     console.log('Save button clicked!')
     setSaving(true)
     console.log('Saving configs...', { maintenanceMode, maintenanceMessage, minVersion, forceUpdate, contactEmail, contactPhone, contactWhatsapp })
@@ -124,7 +126,17 @@ export const ConfigPage = () => {
           <h1 className="text-2xl font-bold text-gray-900">App Configuration</h1>
           <p className="text-gray-500">Control app settings remotely</p>
         </div>
-        <button onClick={saveConfigs} disabled={saving} className="btn-primary flex items-center gap-2">
+        <button 
+          onClick={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            console.log('Button clicked!', e)
+            saveConfigs()
+          }} 
+          disabled={saving} 
+          className="btn-primary flex items-center gap-2"
+          type="button"
+        >
           <Save className="w-4 h-4" />
           {saving ? 'Saving...' : 'Save Changes'}
         </button>
