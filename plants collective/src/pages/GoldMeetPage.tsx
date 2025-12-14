@@ -139,41 +139,36 @@ const GoldMeetPage = () => {
           >
             <ArrowLeft className="w-5 h-5 text-gray-700" />
           </button>
-          <div>
-            <p className="text-xs uppercase tracking-wide text-green-600 font-semibold">Gold Meet</p>
-            <h1 className="text-2xl font-bold text-gray-900">Daily Live & Recorded Sessions</h1>
-          </div>
+          <h1 className="text-2xl font-bold text-gray-900">Daily Live & Recorded Sessions</h1>
         </div>
         <ReportButton section="Gold Meet" variant="icon" />
       </header>
 
       <main className="max-w-6xl mx-auto px-4 pb-10 space-y-6">
-        <div className="bg-white rounded-2xl shadow-sm p-4 flex flex-col gap-3">
-          <div className="flex flex-wrap gap-3 items-center">
-            <div className="relative flex-1 min-w-[220px]">
-              <Search className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
-              <input
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search sessions, experts, topics..."
-                className="w-full border border-gray-200 rounded-lg pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
-              />
-            </div>
-            <div className="flex gap-2 overflow-auto pb-1">
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setSelectedCategory(cat)}
-                  className={`px-3 py-2 rounded-lg text-sm whitespace-nowrap border transition ${
-                    selectedCategory === cat
-                      ? "bg-green-500 text-white border-green-500 shadow-sm"
-                      : "bg-white text-gray-700 border-gray-200 hover:border-green-300"
-                  }`}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
+        <div className="bg-white rounded-2xl shadow-sm p-4 space-y-4">
+          <div className="relative">
+            <Search className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
+            <input
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search sessions, experts, topics..."
+              className="w-full border border-gray-200 rounded-lg pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+            />
+          </div>
+          <div className="flex gap-2 overflow-x-auto pb-2 -mx-1 px-1 scrollbar-hide">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setSelectedCategory(cat)}
+                className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap border transition-all flex-shrink-0 ${
+                  selectedCategory === cat
+                    ? "bg-green-500 text-white border-green-500 shadow-sm"
+                    : "bg-white text-gray-700 border-gray-200 hover:border-green-300 hover:bg-green-50"
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
           </div>
         </div>
 
