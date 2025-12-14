@@ -1,0 +1,13 @@
+# Plants Collective - Admin Panel Environment Variables
+# Copy these values and paste into Vercel Environment Variables section
+# Replace the placeholder values with your actual credentials
+
+# ============================================
+# REQUIRED - Must be set for admin panel to work
+# ============================================
+
+# Supabase Configuration (REQUIRED)
+VITE_SUPABASE_URL=https://vwdrevguebayhyjfurag.supabase.co
+VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ3ZHJldmd1ZWJheWh5amZ1cmFnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE4NDc4MzgsImV4cCI6MjA3NzQyMzgzOH0.piXThvjmumPEOtyC63p3IlPyfC2rrWl7WqNesh5AbVI
+
+
