@@ -205,7 +205,7 @@ const GoldMeetPage = () => {
                 <div className="flex items-center gap-2 text-xs text-gray-500">
                   <CalendarClock className="w-4 h-4" />
                   <span>{primaryVideo.date}</span>
-                  <span>•</span>
+                  <span>ï¿½</span>
                   <span>{primaryVideo.duration}</span>
                 </div>
                 <h2 className="text-lg font-semibold text-gray-900">{primaryVideo.title}</h2>
@@ -247,9 +247,9 @@ const GoldMeetPage = () => {
                       <p className="text-xs text-gray-600">{video.speaker}</p>
                       <div className="flex items-center gap-2 text-[11px] text-gray-500">
                         <span>{video.date}</span>
-                        <span>•</span>
+                        <span>ï¿½</span>
                         <span>{video.duration}</span>
-                        <span>•</span>
+                        <span>ï¿½</span>
                         <span className="capitalize">{video.category}</span>
                       </div>
                     </div>
