@@ -46,99 +46,141 @@ export const NotificationsPage = () => {
   }
 
   const sendNotification = async () => {
-    if (!formData.title || !formData.message) return
+    if (!formData.title || !formData.message) {
+      alert('Please fill in title and message')
+      return
+    }
     if (targetType === 'specific' && selectedUsers.length === 0) {
       alert('Please select at least one user')
       return
     }
 
-    // Create notification
-    const { data: notification, error } = await supabase
-      .from('notifications')
-      .insert({
-        title: formData.title,
-        message: formData.message,
-        type: formData.type,
-        link: formData.link || null,
-        target: targetType === 'all' ? 'all' : 'specific',
-        target_filter: targetType === 'specific' ? { user_ids: selectedUsers.map(u => u.id) } : null,
-        is_active: true,
-        sent_at: new Date().toISOString(),
-        created_by: admin?.id
-      })
-      .select()
-      .single()
+    // Set loading state
+    setSaving(true)
+    console.log('Starting notification send...')
 
-    if (error) {
-      alert('Failed to send notification')
-      return
-    }
+    try {
+      // Create notification
+      console.log('Creating notification in database...')
+      const { data: notification, error } = await supabase
+        .from('notifications')
+        .insert({
+          title: formData.title,
+          message: formData.message,
+          type: formData.type,
+          link: formData.link || null,
+          target: targetType === 'all' ? 'all' : 'specific',
+          target_filter: targetType === 'specific' ? { user_ids: selectedUsers.map(u => u.id) } : null,
+          is_active: true,
+          sent_at: new Date().toISOString(),
+          created_by: admin?.id
+        })
+        .select()
+        .single()
 
-    // Create user_notifications entries
-    if (notification) {
-      let targetUsers: { id: string }[] = []
-      
-      if (targetType === 'all') {
-        const { data } = await supabase.from('profiles').select('id')
-        targetUsers = data || []
-      } else {
-        targetUsers = selectedUsers.map(u => ({ id: u.id }))
+      if (error) {
+        console.error('Error creating notification:', error)
+        alert('Failed to send notification: ' + error.message)
+        setSaving(false)
+        return
       }
 
-      const userNotifications = targetUsers.map(user => ({
-        user_id: user.id,
-        notification_id: notification.id,
-        is_read: false
-      }))
-      await supabase.from('user_notifications').insert(userNotifications)
+      console.log('Notification created:', notification.id)
 
-      // Send push notifications to Android devices
-      try {
-        const userIds = targetUsers.map(u => u.id)
-        console.log('Sending push notification to Edge Function...', {
-          user_ids: targetType === 'all' ? 'all' : userIds,
-          title: formData.title,
-          message: formData.message
-        })
+      // Create user_notifications entries
+      if (notification) {
+        let targetUsers: { id: string }[] = []
         
-        const { data, error: functionError } = await supabase.functions.invoke('send-push-notification', {
-          body: {
-            user_ids: targetType === 'all' ? undefined : userIds,
+        console.log('Getting target users...')
+        if (targetType === 'all') {
+          const { data, error: usersError } = await supabase.from('profiles').select('id')
+          if (usersError) {
+            console.error('Error fetching users:', usersError)
+          }
+          targetUsers = data || []
+        } else {
+          targetUsers = selectedUsers.map(u => ({ id: u.id }))
+        }
+
+        console.log(`Creating user_notifications for ${targetUsers.length} users...`)
+        const userNotifications = targetUsers.map(user => ({
+          user_id: user.id,
+          notification_id: notification.id,
+          is_read: false
+        }))
+        
+        const { error: insertError } = await supabase.from('user_notifications').insert(userNotifications)
+        if (insertError) {
+          console.error('Error creating user notifications:', insertError)
+        } else {
+          console.log('User notifications created successfully')
+        }
+
+        // Send push notifications to Android devices (with timeout)
+        try {
+          const userIds = targetUsers.map(u => u.id)
+          console.log('Sending push notification to Edge Function...', {
+            user_ids: targetType === 'all' ? 'all' : userIds.length + ' users',
             title: formData.title,
-            message: formData.message,
-            data: {
-              type: formData.type,
-              link: formData.link || '',
-              notification_id: notification.id
+            message: formData.message
+          })
+          
+          // Add timeout to prevent freezing
+          const timeoutPromise = new Promise((_, reject) => 
+            setTimeout(() => reject(new Error('Push notification timeout after 30 seconds')), 30000)
+          )
+          
+          const functionPromise = supabase.functions.invoke('send-push-notification', {
+            body: {
+              user_ids: targetType === 'all' ? undefined : userIds,
+              title: formData.title,
+              message: formData.message,
+              data: {
+                type: formData.type,
+                link: formData.link || '',
+                notification_id: notification.id
+              }
+            }
+          })
+          
+          const { data, error: functionError } = await Promise.race([functionPromise, timeoutPromise]) as any
+          
+          if (functionError) {
+            console.error('Edge Function error:', functionError)
+            // Don't show error alert, just log it - in-app notification was created
+          } else {
+            console.log('Push notifications sent successfully:', data)
+            if (data?.sent === 0) {
+              console.warn('⚠️ No device tokens found')
+            } else if (data?.sent) {
+              console.log(`✅ Push notification sent to ${data.sent} device(s)!`)
             }
           }
-        })
-        
-        if (functionError) {
-          console.error('Edge Function error:', functionError)
-          alert(`Push notification error: ${functionError.message || 'Unknown error'}`)
-        } else {
-          console.log('Push notifications sent successfully:', data)
-          if (data?.sent === 0) {
-            alert('⚠️ No device tokens found. Make sure users have logged in on their Android phones.')
-          } else if (data?.sent) {
-            alert(`✅ Push notification sent to ${data.sent} device(s)!`)
-          }
+        } catch (pushError) {
+          console.error('Error sending push notifications:', pushError)
+          // Don't show error alert - in-app notification was already created successfully
+          // Push notifications are optional, in-app notifications are the main feature
         }
-      } catch (pushError) {
-        console.error('Error sending push notifications:', pushError)
-        alert(`Failed to send push notification: ${pushError instanceof Error ? pushError.message : 'Unknown error'}`)
-        // Don't fail the whole operation if push fails
-        // In-app notification was already created
       }
-    }
 
-    setShowForm(false)
-    setFormData({ title: '', message: '', type: 'info', link: '' })
-    setSelectedUsers([])
-    setTargetType('all')
-    setSearchQuery('')
-    fetchNotifications()
+      // Close form and reset
+      setShowForm(false)
+      setFormData({ title: '', message: '', type: 'info', link: '' })
+      setSelectedUsers([])
+      setTargetType('all')
+      setSearchQuery('')
+      
+      // Refresh notifications list
+      await fetchNotifications()
+      
+      console.log('Notification send completed successfully')
+      alert('✅ Notification sent successfully!')
+    } catch (error) {
+      console.error('Unexpected error:', error)
+      alert('Failed to send notification: ' + (error instanceof Error ? error.message : 'Unknown error'))
+    } finally {
+      setSaving(false)
+    }
   }
 
   const deleteNotification = async (id: string) => {
@@ -418,9 +460,22 @@ export const NotificationsPage = () => {
               >
                 Cancel
               </button>
-              <button onClick={sendNotification} className="flex-1 btn-primary flex items-center justify-center gap-2">
-                <Send className="w-4 h-4" />
-                {targetType === 'all' ? 'Send to All' : `Send to ${selectedUsers.length} User${selectedUsers.length !== 1 ? 's' : ''}`}
+              <button 
+                onClick={sendNotification} 
+                disabled={saving}
+                className="flex-1 btn-primary flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {saving ? (
+                  <>
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-4 h-4" />
+                    {targetType === 'all' ? 'Send to All' : `Send to ${selectedUsers.length} User${selectedUsers.length !== 1 ? 's' : ''}`}
+                  </>
+                )}
               </button>
             </div>
           </div>
