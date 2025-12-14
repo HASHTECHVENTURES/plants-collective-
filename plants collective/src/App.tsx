@@ -90,6 +90,8 @@ const BackButtonHandler = () => {
 const App = () => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [maintenanceMode, setMaintenanceMode] = useState(false);
+  const [maintenanceMessage, setMaintenanceMessage] = useState('We are currently under maintenance. Please check back soon.');
 
   useEffect(() => {
     // Check for stored user session using safe storage wrapper
@@ -103,13 +105,47 @@ const App = () => {
         storage.remove('plants-collective-user');
       }
     }
+
+    // Check maintenance mode
+    checkMaintenanceMode();
+
+    // Subscribe to maintenance mode changes
+    const unsubscribe = realtimeSyncService.subscribeToAppConfig((payload) => {
+      if (payload.type === 'UPDATE' || payload.type === 'INSERT') {
+        checkMaintenanceMode();
+      }
+    });
+
     setLoading(false);
 
     // Cleanup real-time subscriptions on app unmount
     return () => {
+      unsubscribe();
       realtimeSyncService.cleanup();
     };
   }, []);
+
+  const checkMaintenanceMode = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('app_config')
+        .select('*')
+        .eq('key', 'maintenance_mode')
+        .single();
+
+      if (error) {
+        console.error('Error checking maintenance mode:', error);
+        return;
+      }
+
+      if (data && data.value) {
+        setMaintenanceMode(data.value.enabled || false);
+        setMaintenanceMessage(data.value.message || 'We are currently under maintenance. Please check back soon.');
+      }
+    } catch (error) {
+      console.error('Error checking maintenance mode:', error);
+    }
+  };
 
   const login = async (pin: string, phone_number: string, name?: string, email?: string, gender?: string, birthdate?: string, country?: string, state?: string, city?: string): Promise<LoginResult> => {
     try {
@@ -289,6 +325,27 @@ const App = () => {
         <div className="text-center">
           <div className="w-8 h-8 border-4 border-green-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-gray-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Show maintenance mode screen if enabled
+  if (maintenanceMode) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-orange-50 to-red-50 flex items-center justify-center p-4">
+        <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 text-center">
+          <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <svg className="w-8 h-8 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+          </div>
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">Under Maintenance</h1>
+          <p className="text-gray-600 mb-6 whitespace-pre-line">{maintenanceMessage}</p>
+          <div className="text-sm text-gray-500">
+            <p>We'll be back soon!</p>
+            <p className="mt-2">Thank you for your patience.</p>
+          </div>
         </div>
       </div>
     );
