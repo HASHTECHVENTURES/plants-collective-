@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase'
 import { Save, AlertTriangle, Smartphone, Mail } from 'lucide-react'
+import { realtimeSyncService } from '@/services/realtimeSyncService'
 
 export const ConfigPage = () => {
   const [loading, setLoading] = useState(true)
@@ -17,6 +18,21 @@ export const ConfigPage = () => {
   useEffect(() => {
     console.log('ConfigPage mounted')
     fetchConfigs()
+
+    // Subscribe to real-time changes
+    const unsubscribe = realtimeSyncService.subscribeToAppConfig((payload) => {
+      console.log('Real-time app_config change detected:', payload)
+      if (payload.type === 'UPDATE' || payload.type === 'INSERT') {
+        // Refresh configs when changes are detected
+        fetchConfigs()
+      }
+    })
+
+    // Cleanup subscription on unmount
+    return () => {
+      unsubscribe()
+      realtimeSyncService.cleanup()
+    }
   }, [])
 
   const fetchConfigs = async () => {
