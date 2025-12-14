@@ -186,3 +186,4 @@ Currently, the code falls back to base64 encoding when storage upload fails. Thi
 After fixing RLS, images will be stored properly in Supabase Storage! 🎉
 
 
+

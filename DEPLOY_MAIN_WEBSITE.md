@@ -150,3 +150,4 @@ Your website is now live and will automatically update whenever you push to GitH
 - Vercel Docs: https://vercel.com/docs
 - Check deployment logs in Vercel dashboard
 - Verify GitHub integration is active
+

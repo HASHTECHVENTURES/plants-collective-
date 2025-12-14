@@ -231,3 +231,4 @@ npm run cap:open:android
 **Ready for APK**: ✅ YES
 
 
+

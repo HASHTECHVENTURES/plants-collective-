@@ -131,3 +131,4 @@ Check:
 ---
 
 **Most Common Fix:** Update the ANON_KEY in Vercel to match your Supabase Dashboard! 🎯
+

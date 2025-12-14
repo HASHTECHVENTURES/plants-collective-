@@ -67,3 +67,4 @@ CREATE TRIGGER update_device_tokens_updated_at
 -- 3. Add google-services.json to android/app/ directory
 -- 4. Configure FCM in AndroidManifest.xml
 -- ============================================
+

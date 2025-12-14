@@ -27,3 +27,4 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ3ZHJldmd
 ```
 
 **Compare this with your Supabase Dashboard key - they must match exactly!**
+

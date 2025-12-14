@@ -67,3 +67,4 @@ After deployment:
 If you see errors, check the function logs in Supabase Dashboard.
 
 
+

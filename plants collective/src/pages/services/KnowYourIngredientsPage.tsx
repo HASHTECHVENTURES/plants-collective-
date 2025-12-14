@@ -45,3 +45,4 @@ const KnowYourIngredientsPage = () => {
 };
 
 export default KnowYourIngredientsPage;
+
