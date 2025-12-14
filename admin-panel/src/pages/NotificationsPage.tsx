@@ -160,18 +160,6 @@ export const NotificationsPage = () => {
           }).catch((pushError) => {
             console.error('Error sending push notifications:', pushError)
           })
-          
-          if (functionError) {
-            console.error('Edge Function error:', functionError)
-            // Don't show error alert, just log it - in-app notification was created
-          } else {
-            console.log('Push notifications sent successfully:', data)
-            if (data?.sent === 0) {
-              console.warn('⚠️ No device tokens found')
-            } else if (data?.sent) {
-              console.log(`✅ Push notification sent to ${data.sent} device(s)!`)
-            }
-          }
         } catch (pushError) {
           console.error('Error sending push notifications:', pushError)
           // Don't show error alert - in-app notification was already created successfully
