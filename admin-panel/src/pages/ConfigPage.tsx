@@ -211,14 +211,20 @@ export const ConfigPage = () => {
               </button>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Maintenance Message</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Maintenance Message
+                <span className="text-xs text-gray-500 ml-2">(This message will be shown to users)</span>
+              </label>
               <textarea
                 value={maintenanceMessage}
                 onChange={(e) => setMaintenanceMessage(e.target.value)}
                 className="input"
-                rows={3}
-                placeholder="We are currently under maintenance. Please check back soon."
+                rows={5}
+                placeholder="We are currently under maintenance. Please check back soon.&#10;&#10;We'll be back soon!&#10;Thank you for your patience."
               />
+              <p className="text-xs text-gray-500 mt-1">
+                Tip: Use line breaks to format your message. Leave empty to use default message.
+              </p>
             </div>
           </div>
         </div>
