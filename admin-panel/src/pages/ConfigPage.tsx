@@ -53,46 +53,59 @@ export const ConfigPage = () => {
   }
 
   const saveConfigs = async () => {
+    console.log('Save button clicked!')
     setSaving(true)
-    console.log('Saving configs...')
+    console.log('Saving configs...', { maintenanceMode, maintenanceMessage, minVersion, forceUpdate, contactEmail, contactPhone, contactWhatsapp })
 
     try {
-      const results = await Promise.all([
-        supabase.from('app_config').upsert({
-          key: 'maintenance_mode',
-          value: { enabled: maintenanceMode, message: maintenanceMessage },
-          updated_at: new Date().toISOString()
-        }, { onConflict: 'key' }),
+      const config1 = {
+        key: 'maintenance_mode',
+        value: { enabled: maintenanceMode, message: maintenanceMessage },
+        updated_at: new Date().toISOString()
+      }
+      
+      const config2 = {
+        key: 'app_version',
+        value: { min_version: minVersion, force_update: forceUpdate, current_version: '1.0.0' },
+        updated_at: new Date().toISOString()
+      }
+      
+      const config3 = {
+        key: 'contact_info',
+        value: { email: contactEmail, phone: contactPhone, whatsapp: contactWhatsapp },
+        updated_at: new Date().toISOString()
+      }
 
-        supabase.from('app_config').upsert({
-          key: 'app_version',
-          value: { min_version: minVersion, force_update: forceUpdate, current_version: '1.0.0' },
-          updated_at: new Date().toISOString()
-        }, { onConflict: 'key' }),
+      console.log('Saving configs:', { config1, config2, config3 })
 
-        supabase.from('app_config').upsert({
-          key: 'contact_info',
-          value: { email: contactEmail, phone: contactPhone, whatsapp: contactWhatsapp },
-          updated_at: new Date().toISOString()
-        }, { onConflict: 'key' })
-      ])
+      const result1 = await supabase.from('app_config').upsert(config1, { onConflict: 'key' })
+      console.log('Result 1:', result1)
+      
+      const result2 = await supabase.from('app_config').upsert(config2, { onConflict: 'key' })
+      console.log('Result 2:', result2)
+      
+      const result3 = await supabase.from('app_config').upsert(config3, { onConflict: 'key' })
+      console.log('Result 3:', result3)
 
-      console.log('Save results:', results)
+      const results = [result1, result2, result3]
+      console.log('All save results:', results)
       
       const errors = results.filter(r => r.error)
       if (errors.length > 0) {
         console.error('Save errors:', errors)
-        alert('Error saving: ' + errors.map(e => e.error?.message).join(', '))
+        const errorMessages = errors.map(e => e.error?.message || 'Unknown error').join(', ')
+        alert('Error saving: ' + errorMessages)
       } else {
+        console.log('✅ All configs saved successfully!')
         alert('Settings saved successfully!')
+        await fetchConfigs() // Refresh to show saved data
       }
     } catch (error) {
       console.error('Error saving configs:', error)
-      alert('Failed to save settings. Please try again.')
+      alert('Failed to save settings: ' + (error instanceof Error ? error.message : 'Unknown error'))
+    } finally {
+      setSaving(false)
     }
-
-    setSaving(false)
-    fetchConfigs()
   }
 
   if (loading) {
