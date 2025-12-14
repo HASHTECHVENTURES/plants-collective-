@@ -33,14 +33,25 @@ export const ConfigPage = () => {
       // Parse configs
       const maintenance = data.find(c => c.key === 'maintenance_mode')?.value
       if (maintenance) {
-        setMaintenanceMode(maintenance.enabled || false)
+        // Properly parse boolean - handle both boolean and string values
+        const enabled = maintenance.enabled === true || maintenance.enabled === 'true'
+        setMaintenanceMode(enabled)
         setMaintenanceMessage(maintenance.message || '')
+      } else {
+        // If no maintenance config exists, default to OFF
+        setMaintenanceMode(false)
+        setMaintenanceMessage('')
       }
 
       const appVersion = data.find(c => c.key === 'app_version')?.value
       if (appVersion) {
-        setForceUpdate(appVersion.force_update || false)
+        // Properly parse boolean
+        const forceUpdateValue = appVersion.force_update === true || appVersion.force_update === 'true'
+        setForceUpdate(forceUpdateValue)
         setMinVersion(appVersion.min_version || '1.0.0')
+      } else {
+        setForceUpdate(false)
+        setMinVersion('1.0.0')
       }
 
       const contact = data.find(c => c.key === 'contact_info')?.value
@@ -48,7 +59,20 @@ export const ConfigPage = () => {
         setContactEmail(contact.email || '')
         setContactPhone(contact.phone || '')
         setContactWhatsapp(contact.whatsapp || '')
+      } else {
+        setContactEmail('')
+        setContactPhone('')
+        setContactWhatsapp('')
       }
+    } else {
+      // If no data at all, reset everything to defaults
+      setMaintenanceMode(false)
+      setMaintenanceMessage('')
+      setForceUpdate(false)
+      setMinVersion('1.0.0')
+      setContactEmail('')
+      setContactPhone('')
+      setContactWhatsapp('')
     }
     setLoading(false)
   }
